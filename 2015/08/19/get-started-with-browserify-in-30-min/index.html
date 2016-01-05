@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>30分钟上手Browserify | Keep It Simple Do It Well</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+使用cnpm代替npm 
+
+初始文件夹结构初始文件夹结构如下：
+123.├── app.js└── index.html
+app.js暂时为空，index.html为最基本html结构，引入app.js。
+12345678910&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;    &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30分钟上手Browserify">
+<meta property="og:url" content="http://yoursite.com/2015/08/19/get-started-with-browserify-in-30-min/index.html">
+<meta property="og:site_name" content="Keep It Simple Do It Well">
+<meta property="og:description" content="本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+使用cnpm代替npm 
+
+初始文件夹结构初始文件夹结构如下：
+123.├── app.js└── index.html
+app.js暂时为空，index.html为最基本html结构，引入app.js。
+12345678910&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;    &amp;">
+<meta property="og:updated_time" content="2015-08-19T10:29:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="30分钟上手Browserify">
+<meta name="twitter:description" content="本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+使用cnpm代替npm 
+
+初始文件夹结构初始文件夹结构如下：
+123.├── app.js└── index.html
+app.js暂时为空，index.html为最基本html结构，引入app.js。
+12345678910&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;    &amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Keep It Simple Do It Well" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keep It Simple Do It Well</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-get-started-with-browserify-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/19/get-started-with-browserify-in-30-min/" class="article-date">
+  <time datetime="2015-08-19T07:01:15.000Z" itemprop="datePublished">2015-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      30分钟上手Browserify
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>使用<a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a>代替npm </li>
+</ul>
+<h3 id="u521D_u59CB_u6587_u4EF6_u5939_u7ED3_u6784"><a href="#u521D_u59CB_u6587_u4EF6_u5939_u7ED3_u6784" class="headerlink" title="初始文件夹结构"></a>初始文件夹结构</h3><p>初始文件夹结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app.js</span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure>
+<p><code>app.js</code>暂时为空，<code>index.html</code>为最基本html结构，引入<code>app.js</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>browserify-test<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"app.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在<code>app.js</code>中增加简单的代码<code>alert(&#39;hello browserify!&#39;)</code>，在浏览器中打开页面，可见弹出提示。</p>
+<h3 id="u4E0B_u8F7D_u5E76_u4FDD_u5B58Browserify_u5230_u9879_u76EE"><a href="#u4E0B_u8F7D_u5E76_u4FDD_u5B58Browserify_u5230_u9879_u76EE" class="headerlink" title="下载并保存Browserify到项目"></a>下载并保存Browserify到项目</h3><p>首先，使用<code>npm init</code>命令生成<code>package.json</code>文件。</p>
+<p>然后，使用以下命令下载Browserify并保存为开发依赖包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install browserify --save-dev</span><br></pre></td></tr></table></figure>
+<p>完成后，<code>package.json</code>中应该会增加下面的部分：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"devDependencies": &#123;</span><br><span class="line">  "browserify": "^11.0.1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Browserify__u548CNPM"><a href="#Browserify__u548CNPM" class="headerlink" title="Browserify 和NPM"></a>Browserify 和NPM</h3><p>使用npm安装的依赖包，Browserify可以自动识别。以jQuery为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install jquery --save</span><br></pre></td></tr></table></figure>
+<p>下载完成后，在<code>index.html</code>增加：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>然后，在<code>app.js</code>中对<code>main</code>这个<code>div</code>作简单处理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用jQuery就是这么简单！</span></span><br><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">$(<span class="string">'.main'</span>).text(<span class="string">'hello browserify!'</span>);</span><br></pre></td></tr></table></figure>
+<p>如果这时在浏览器中打开<code>index.html</code>是会报错的，因为浏览器本身不懂得处理文件之间的依赖关系，需要使用Browserify打包文件后才可以看到效果。</p>
+<h3 id="u4F7F_u7528Browserify_u6253_u5305_u6587_u4EF6"><a href="#u4F7F_u7528Browserify_u6253_u5305_u6587_u4EF6" class="headerlink" title="使用Browserify打包文件"></a>使用Browserify打包文件</h3><p>首先，把<code>index.html</code>引入的js文件从<code>app.js</code>改为<code>bundle.js</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bundle.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>bundle.js</code>从哪里来呢？</p>
+<p>在<code>package.json</code>中增加以下部分：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "build": "browserify app.js -o bundle.js"</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>然后在命令行运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>完成以后可以发现，文件夹下新增了<code>bundle.js</code>，这时候打开<code>index.html</code>应该就可以正常看到文字了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browserify app.js -o bundle.js</span><br></pre></td></tr></table></figure>
+<p>这个命令所做的，就是把<code>app.js</code>所依赖的所有文件都打包到<code>bundle.js</code>里面去。打开<code>bundle.js</code>可以看到<code>app.js</code>和jQuery的内容。</p>
+<h3 id="u4F7F_u7528Watchify_u5B9E_u73B0_u5B9E_u65F6_u6587_u4EF6_u6253_u5305"><a href="#u4F7F_u7528Watchify_u5B9E_u73B0_u5B9E_u65F6_u6587_u4EF6_u6253_u5305" class="headerlink" title="使用Watchify实现实时文件打包"></a>使用Watchify实现实时文件打包</h3><p>使用<code>npm run build</code>命令，只会在运行之后打包一次文件。在开发的时候每做一次改动，就跑一次这个命令，显然不现实。所以在项目中安装Watchify这个工具来实现实时文件打包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install watchify --save-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"devDependencies": &#123;</span><br><span class="line">  "browserify": "^11.0.1",</span><br><span class="line">  "watchify": "^3.3.1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>package.json</code>文件中增加<code>watch</code>指令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "build": "browserify app.js -o bundle.js",</span><br><span class="line">    "watch": "watchify app.js -o bundle.js"</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>现在，在命令行运行<code>npm run watch</code>，并对文件做一些改动，就可以实时见到效果了。</p>
+<h3 id="u5C1D_u8BD5_u589E_u52A0_u81EA_u5DF1_u7684_u6A21_u5757"><a href="#u5C1D_u8BD5_u589E_u52A0_u81EA_u5DF1_u7684_u6A21_u5757" class="headerlink" title="尝试增加自己的模块"></a>尝试增加自己的模块</h3><p>Browserify可以使用通过<code>npm</code>下载的包，非常方便。但它的用处绝不仅于此。在开发的时候，把自己的代码模块化，然后<code>export</code>出去，在Browserify中也可以使用<code>require</code>来获得。</p>
+<p>现在，把问候语强化成一个小模块<code>salutation.js</code>，放在<code>utils</code>文件夹下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建自己的模块</span></span><br><span class="line"><span class="keyword">var</span> salutation = <span class="function"><span class="keyword">function</span> (<span class="params">container</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> greetingsList = [</span><br><span class="line">        <span class="string">'Nice to see you here!'</span>,</span><br><span class="line">        <span class="string">'很高兴见到你！'</span>,</span><br><span class="line">        <span class="string">'Alohaaaaaaa!'</span>,</span><br><span class="line">        <span class="string">'Beep Boop!'</span></span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> max = greetingsList.length;</span><br><span class="line">    <span class="keyword">var</span> randomIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * max);</span><br><span class="line"></span><br><span class="line">    container.text(greetingsList[randomIndex]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把模块export出去</span></span><br><span class="line"><span class="built_in">module</span>.exports = salutation;</span><br></pre></td></tr></table></figure>
+<p>在<code>app.js</code>中引入这个模块，并使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line"><span class="comment">// 引入自己的salutation模块</span></span><br><span class="line"><span class="keyword">var</span> salutation = <span class="built_in">require</span>(<span class="string">'./utils/salutation.js'</span>);</span><br><span class="line"></span><br><span class="line">salutation($(<span class="string">'.main'</span>));</span><br></pre></td></tr></table></figure>
+<p>不断刷新页面可见效果。</p>
+<h3 id="u4E3B_u89C2_u4F7F_u7528_u611F_u53D7"><a href="#u4E3B_u89C2_u4F7F_u7528_u611F_u53D7" class="headerlink" title="主观使用感受"></a>主观使用感受</h3><ul>
+<li>直接<code>module.exports</code>输出模块，<code>require</code>使用模块，直观方便</li>
+<li><a href="/">和backbone一起使用的时候，是否有办法实现css, js按需加载？</a></li>
+<li><a href="/">如何把文件分开打包，而不是打包到一个大文件中去？</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/19/get-started-with-browserify-in-30-min/" data-id="cij1759g30002b78zcw0ye8q8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/29/advance-stylus-in-30-min/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          30分钟Stylus进阶
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/16/get-stared-with-rjs-in-30-min/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">30分钟上手RequireJS打包及优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/05/get-started-with-electron-in-30-min/">30分钟Electron入门</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/29/advance-stylus-in-30-min/">30分钟Stylus进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/19/get-started-with-browserify-in-30-min/">30分钟上手Browserify</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/16/get-stared-with-rjs-in-30-min/">30分钟上手RequireJS打包及优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/15/get-started-with-requirejs-in-30-min/">30分钟上手RequireJS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Levblanc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

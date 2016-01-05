@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Keep It Simple Do It Well</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Keep It Simple Do It Well">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Keep It Simple Do It Well">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keep It Simple Do It Well">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Keep It Simple Do It Well" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keep It Simple Do It Well</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-get-started-with-electron-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/05/get-started-with-electron-in-30-min/" class="article-date">
+  <time datetime="2016-01-05T02:09:57.000Z" itemprop="datePublished">2016-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/05/get-started-with-electron-in-30-min/">30分钟Electron入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>互联网移动化以后，催生了手机端各种app，两大手机系统上需要分别开发一个app。我一直在想，本来网页就是最便捷的跨平台方式，只要手机上有浏览器，打开对应网址就可以了，只需要开发一次，什么系统都通用。为什么不是有一个可以安装到不同系统中的容器，里面可以跑网页呢？为什么要分开开发两个app呢？</p>
+<p>更进一步的想法是，以后所有的操作系统，都将是一个浏览器，我们所有的文件不储存在本地，而是储存在云端。所以将来我们的系统里面看见的，其实全都是使用web前端技术写的UI，网页浏览器的概念将不复存在，因为我们从一开始，就是在上网。</p>
+<p>2015年逐渐出现一些实现前一种想法的桌面应用，gitHub团队开发的Atom编辑器和大牌Adobe开发的Brackets编辑器就是其中代表。而React-Native的出现，更加是让开发人员雀跃不已。Electron其实就是gitHub团队开发Atom时的框架，之前叫Atom-Shell。</p>
+<p>React-Native和Electron异曲同工的地方，就是提供出一个公共的容器，以及能够调用对应系统事件的API。只是React-Native主打移动端，而Electron目前只针对桌面端而已。</p>
+<p><strong>下面的示例写于2016年1月，如果日后Electron的API有更新导致报错的话，请自行查询官方最新的文档。</strong></p>
+<h3 id="u521B_u5EFA_u6587_u4EF6_u5939_u5E76_u5B89_u88C5_u5F00_u53D1_u4F9D_u8D56_u5305"><a href="#u521B_u5EFA_u6587_u4EF6_u5939_u5E76_u5B89_u88C5_u5F00_u53D1_u4F9D_u8D56_u5305" class="headerlink" title="创建文件夹并安装开发依赖包"></a>创建文件夹并安装开发依赖包</h3><p>创建文件夹<code>electron-get-started</code>，或命名为其它自己喜爱的名字。在文件夹下创建下列文件，全部留空即可。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── <span class="tag">index</span><span class="class">.html</span></span><br><span class="line">└── <span class="tag">main</span><span class="class">.js</span></span><br></pre></td></tr></table></figure>
+<p>执行<code>npm init</code>命令，生成<code>package.json</code>文件。其中<code>scripts</code>部分设置为<code>&quot;start&quot;: &quot;electron main.js&quot;</code>。</p>
+<p>接下来安装所需的依赖包（npm默认源链接缓慢的，请使用淘宝国内镜像）：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> electron-prebuilt</span><br></pre></td></tr></table></figure>
+<p>完成后<code>package.json</code>文件如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"electron-get-started"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.0.1"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">""</span></span>,</span><br><span class="line">  "<span class="attribute">main</span>": <span class="value"><span class="string">"main.js"</span></span>,</span><br><span class="line">  "<span class="attribute">scripts</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">start</span>": <span class="value"><span class="string">"electron main.js"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">author</span>": <span class="value"><span class="string">""</span></span>,</span><br><span class="line">  "<span class="attribute">license</span>": <span class="value"><span class="string">"ISC"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">electron-prebuilt</span>": <span class="value"><span class="string">"^0.36.2"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>完成以上步骤之后文件夹目录结构如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── index<span class="class">.html</span></span><br><span class="line">├── main<span class="class">.js</span></span><br><span class="line">└── package.json</span><br></pre></td></tr></table></figure>
+<h3 id="u5F00_u73A9"><a href="#u5F00_u73A9" class="headerlink" title="开玩"></a>开玩</h3><p>既然是个桌面程序，第一步自然是程序启动后要打开个窗口吧。在<code>main.js</code>中添加下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> electron = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"><span class="keyword">var</span> app = electron.app</span><br><span class="line"><span class="keyword">var</span> BrowserWindow = electron.BrowserWindow</span><br><span class="line"></span><br><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">        width: <span class="number">800</span>,</span><br><span class="line">        height: <span class="number">600</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>很明显<code>electron</code>为开发者提供了方便好用的API可供调用。<code>app</code>控制整个程序的生命周期，<code>BrowserWindow</code>可以打开一个浏览器窗口。</p>
+<p>注：Electron引入了两个新的概念<code>Main Process</code>和<code>Renderer Process</code>。以目前浅显的理解，<code>Main Process</code>指的就是浏览器窗口，<code>Renderer Process</code>指的就是网页。具体解释请参考<a href="http://electron.atom.io/docs/latest/tutorial/quick-start/" target="_blank" rel="external">官网作出的详细解释</a>。</p>
+<p>在<code>main.js</code>中添加好上面的代码后保存，在命令行运行<code>npm start</code>，应该就会打开一个800*600像素的空白窗口。从而也证明程序可以正常跑起来了。</p>
+<h3 id="u52A0_u8F7D_u7F51_u9875_u6216_u672C_u5730_u6587_u4EF6"><a href="#u52A0_u8F7D_u7F51_u9875_u6216_u672C_u5730_u6587_u4EF6" class="headerlink" title="加载网页或本地文件"></a>加载网页或本地文件</h3><p>既然打开了一个浏览器窗口，第一个想法自然就是，咱们开个网页吧。在<code>main.js</code>里面使用一个简单的方法，就可以达到目的啦。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">        width: <span class="number">800</span>,</span><br><span class="line">        height: <span class="number">600</span></span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    mainWindow.loadURL(<span class="string">'https://github.com'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>重新启动程序之后就可以见到效果。</p>
+<p>可是我们在建一个桌面程序呢，肯定是要加载自己写的文件吧。<code>loadURL</code>同样可以为我们做到。把传入的参数改为本地文件路径就可以啦。</p>
+<p>首先在<code>index.html</code>里面加点简单的内容，好让渲染成功之后能看到点东西。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>electron-quick-start<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span>hello world<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>main.js</code>里面修改成加载本地文件：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">        width: <span class="number">800</span>,</span><br><span class="line">        height: <span class="number">600</span></span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    mainWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>重启程序应该就可以看见页面渲染出<code>hello world</code>字符串了。</p>
+<h3 id="u5F15_u5165_u989D_u5916_u7684js_u6587_u4EF6"><a href="#u5F15_u5165_u989D_u5916_u7684js_u6587_u4EF6" class="headerlink" title="引入额外的js文件"></a>引入额外的js文件</h3><p>打开<code>html</code>文件成功的话，下一步自然就是引入一下<code>jquery</code>和其它的<code>js</code>吧。下面在文件夹根目录放入<code>jquery-2.1.4.min.js</code>（当然也可以是另外的版本，引入的时候文件名对应就可以了），再创建一张<code>app.js</code>。并在<code>index.html</code>里面引入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>electron-quick-start<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">require</span>(<span class="string">'./jquery-2.1.4.min.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">require</span>(<span class="string">'./app.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不要问我为什么可以直接<code>require</code>，因为我也没有深究。Electron就是支持哟。<br>有了<code>jquery</code>，下面的步骤自然就是操作一下dom了。我们在<code>app.js</code>里面简单地搞一下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.main'</span>).<span class="function"><span class="title">text</span><span class="params">(<span class="string">'hello kitty world'</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>重启程序。</p>
+<p>嗯，如果一切步骤正确的话，你应该是得到一个空白的窗口。哈哈哈。</p>
+<h3 id="u6253_u5F00_u5F00_u53D1_u8005_u5DE5_u5177"><a href="#u6253_u5F00_u5F00_u53D1_u8005_u5DE5_u5177" class="headerlink" title="打开开发者工具"></a>打开开发者工具</h3><p>好了，这应该是哪里出错了吧。是不是开始怀念<code>chrome dev tool</code>了？</p>
+<p>既然我们是打开了一个浏览器窗口，那应该也能打开<code>dev tool</code>才是。Bingo！Electron可以为你做到！</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">        width: <span class="number">800</span>,</span><br><span class="line">        height: <span class="number">600</span></span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    mainWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 不加任何参数，可以在本窗口内打开dev tool</span></span><br><span class="line">    <span class="comment">// mainWindow.webContents.openDevTools()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加上参数，可以在新窗口中打开dev tool</span></span><br><span class="line">    mainWindow.webContents.openDevTools(&#123;detach: <span class="literal">true</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>重启程序就可以在<code>dev tool</code>中看到报错了。</p>
+<p><code>Uncaught ReferenceError: $ is not defined</code></p>
+<p>查到正确的引入方法应该是：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>electron-quick-start<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">window</span>.$ = <span class="built_in">require</span>(<span class="string">'./jquery-2.1.4.min.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">require</span>(<span class="string">'./app.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>原因：</p>
+<p>看一下<code>jquery</code>源码：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span>.exports === <span class="string">"object"</span> ) &#123;</span><br><span class="line">  <span class="regexp">//</span> 把jQuery挂到`<span class="javascript"><span class="built_in">module</span></span>`对象下</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="regexp">//</span> 把jQuery挂到`<span class="javascript"><span class="built_in">window</span></span>`对象下</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>app.js</code>里面简单<code>console.log</code>一下可以知道，<code>module</code>和<code>module.exports</code>都已经定义，所以<code>jQuery</code>挂到了<code>module</code>对象下，而不是全局的<code>window.$</code>或<code>window.jQuery</code>。</p>
+<p>参考资料如下：</p>
+<ul>
+<li><a href="http://blog.soulserv.net/first-encounter-with-atom-shell/" target="_blank" rel="external">First encounter with Atom-Shell</a></li>
+<li><a href="https://github.com/atom/electron/issues/254" target="_blank" rel="external">electron的github issue: jQuery isn’t set globally because “module” is defined</a></li>
+</ul>
+<h3 id="u8BFB_u53D6_u672C_u5730_u6587_u4EF6_u5185_u5BB9"><a href="#u8BFB_u53D6_u672C_u5730_u6587_u4EF6_u5185_u5BB9" class="headerlink" title="读取本地文件内容"></a>读取本地文件内容</h3><p>之前<code>loadURL</code>方法可以帮我们直接在浏览器中打开本地<code>html</code>文件。由于有<code>nodeJS</code>的加持，我们还能直接读取本地文件的内容。</p>
+<p><code>html</code>中加一个<code>fileContent</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>electron-quick-start<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"fileContent"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">window</span>.$ = <span class="built_in">require</span>(<span class="string">'./jquery-2.1.4.min.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">require</span>(<span class="string">'./app.js'</span>)</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>app.js</code>中使用<code>nodeJS</code>的API，读取<code>package.json</code>文件内容：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> fs = <span class="function"><span class="title">require</span><span class="params">(<span class="string">'fs'</span>)</span></span></span><br><span class="line"><span class="tag">var</span> pckJson = fs.<span class="function"><span class="title">readFileSync</span><span class="params">(<span class="string">'./package.json'</span>, <span class="string">'utf8'</span>)</span></span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'.fileContent'</span>).<span class="function"><span class="title">text</span><span class="params">(pckJson)</span></span></span><br></pre></td></tr></table></figure>
+<p>能做到这一点，就代表我们可以在app本地写一些数据来使用了。</p>
+<hr>
+<p>参考资料：</p>
+<ol>
+<li><p><a href="http://blog.soulserv.net/building-a-package-featuring-electron-as-a-stand-alone-application/" target="_blank" rel="external">Building a Package Featuring Electron as a Stand-Alone Application</a></p>
+</li>
+<li><p><a href="https://github.com/atom/electron/tree/master/docs" target="_blank" rel="external">electron github docs</a></p>
+</li>
+<li><p><a href="http://electron.atom.io/docs/latest/tutorial/quick-start/" target="_blank" rel="external">electron官方教程</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/01/05/get-started-with-electron-in-30-min/" data-id="cij1759g10001b78zpwqn9raj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-advance-stylus-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/29/advance-stylus-in-30-min/" class="article-date">
+  <time datetime="2015-08-29T13:07:52.000Z" itemprop="datePublished">2015-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/29/advance-stylus-in-30-min/">30分钟Stylus进阶</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写CSS，最繁琐的就是每个属性都要写冒号<code>:</code>，分号<code>;</code>，每个选择器都要带花括号<code>{}</code>。一次触键时间可能非常短，但是每行都要重复地输入一些符号，肯定会增加编码时间。后来出现了Less和Sass这些预编译语言，却依然没有减少这些冗余符号的输入，从这点上来说，我真的很不明白它们怎么会起Less这样的名字，也奇怪为什么它们这么火。（好吧，需要承认的是，能nesting，能写mixin和function等等的确是减少了时间，而且这些都发生在Stylus出生以前）</p>
+<p>Stylus就是我一直在找的东西。既然是预编译，当然在写的时候写得越少越好。引用一下官网语法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">body</span></span><br><span class="line">  <span class="tag">color</span> <span class="tag">white</span></span><br></pre></td></tr></table></figure>
+<p>对，就是这么简单。所以基本语法不再多做介绍，可以自行到<a href="http://learnboost.github.io/stylus/" target="_blank" rel="external">Stylus官网</a>查阅。这里要记录的是Stylus的一些巧妙用法，可以大大地方便开发，提升编码速度。</p>
+<h3 id="u6587_u4EF6/_u6A21_u5757_u5F15_u5165_u548C_u6587_u4EF6_u8DEF_u5F84_u901F_u914D_uFF08@import__26amp_3B_globbing_uFF09"><a href="#u6587_u4EF6/_u6A21_u5757_u5F15_u5165_u548C_u6587_u4EF6_u8DEF_u5F84_u901F_u914D_uFF08@import__26amp_3B_globbing_uFF09" class="headerlink" title="文件/模块引入和文件路径速配（@import &amp; globbing）"></a>文件/模块引入和文件路径速配（@import &amp; globbing）</h3><p>在Stylus中引入文件或模块非常简单，就是使用<code>@import</code>。</p>
+<p>引入文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 假设variables.styl放在styl目录下</span><br><span class="line">@import 'styl/variables'    // 如果是stylus文件，不需要写后缀</span><br></pre></td></tr></table></figure>
+<p>引入模块：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 假设项目中已安装nib模块</span><br><span class="line">@import 'nib'</span><br></pre></td></tr></table></figure>
+<p>引入文件时，你可能会有过这样的经历：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">import</span> <span class="string">'styl/variables'</span></span><br><span class="line">@import <span class="string">'styl/animation'</span></span><br><span class="line">@import <span class="string">'styl/mixins'</span></span><br><span class="line">......</span></span><br></pre></td></tr></table></figure>
+<p>一个个文件地import，文件一多起来，其实也挺烦人。除了要保证自己没少引入文件，还要保证自己没拼错单词…… 但是在Stylus里，可以这样写：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">import</span> <span class="string">'styl/*'</span></span></span><br></pre></td></tr></table></figure>
+<p>这样，在<code>styl</code>文件夹下的所有文件都会被自动引入了。一秒解决所有烦恼。</p>
+<h3 id="u6709_u7528_u7684_u81EA_u5E26Function_uFF08Built-in_Function_uFF09"><a href="#u6709_u7528_u7684_u81EA_u5E26Function_uFF08Built-in_Function_uFF09" class="headerlink" title="有用的自带Function（Built-in Function）"></a>有用的自带Function（Built-in Function）</h3><p><strong>rgba(color | r,g,b,a)</strong><br>直接告诉<code>rgba</code>方法你需要的颜色和透明度，它帮你搞定。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rgba(#ffcc00, 0.5)</span><br><span class="line">// rgba(255,204,0,0.5)</span><br></pre></td></tr></table></figure>
+<p>跟颜色相关的方法还有很多，次于<code>rgba</code>的常用方法，个人来说可能会是<code>lighten(color, amount)</code> 和 <code>darken(color, amount)</code>在做一些<code>hover</code>或点击事件效果的时候会挺有用。</p>
+<p><strong>pathjoin(…)</strong><br>路径拼接让引入图片变得非常简单。比方说，可以自己写一个方法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bgImg(name)</span><br><span class="line">    background-image url(pathjoin('images/' + name + '.png'))</span><br><span class="line"></span><br><span class="line">bgImg(banner)</span><br><span class="line">=&gt;  background-image: url("images/banner.png");</span><br></pre></td></tr></table></figure>
+<h3 id="CSS3_u6269_u5C55_u6A21_u5757nib"><a href="#CSS3_u6269_u5C55_u6A21_u5757nib" class="headerlink" title="CSS3扩展模块nib"></a>CSS3扩展模块nib</h3><p>如果说，Stylus让写css变得更简便，那nib绝对让写Stylus更简便。<a href="http://tj.github.io/nib/" target="_blank" rel="external">官方文档在此</a>。里面的每一个方法，都是提升编码速度的利器。</p>
+<p><strong>Position mixins</strong></p>
+<p>以前，我们这样写position：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">position</span> <span class="tag">absolute</span></span><br><span class="line"><span class="tag">top</span> 0</span><br><span class="line"><span class="tag">left</span> 0</span><br></pre></td></tr></table></figure>
+<p>有了nib以后：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// top, left都为0时</span><br><span class="line">absolute top left</span><br><span class="line"></span><br><span class="line">// top, left 有值时</span><br><span class="line">absolute 10px 5px</span><br></pre></td></tr></table></figure>
+<p><strong>border</strong></p>
+<p>以前，我们这样写border：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">border</span>: 1<span class="tag">px</span> <span class="tag">solid</span> <span class="tag">red</span>;</span><br></pre></td></tr></table></figure>
+<p>有了nib以后：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">border</span> <span class="tag">red</span></span><br></pre></td></tr></table></figure>
+<p><strong>auto-prefix</strong></p>
+<p>用个less还是sass，还要找个auto-prefixer？nib直接帮你搞定，以<code>border-radius</code>为例（更多用法请参考官方文档）：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">button </span><br><span class="line">  border-radius 5px</span><br><span class="line"></span><br><span class="line">// 输出：</span><br><span class="line">button &#123;</span><br><span class="line">  -webkit-border-radius: 5px;</span><br><span class="line">  -moz-border-radius: 5px;</span><br><span class="line">  border-radius: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Ellipsis</strong></p>
+<p>找个方法对于永远没有办法记住单行缩略的几个属性的我来说，简直就是天大的福音！</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">button </span><br><span class="line">  overflow ellipsis</span><br><span class="line"></span><br><span class="line">// 输出：</span><br><span class="line">button &#123;</span><br><span class="line">  white-space: nowrap;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  text-overflow: ellipsis;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Reset</strong></p>
+<p>像下面这样写，就可以获得基本的reset或normalize，如何可以不爱它？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">reset-html5</span>()</span><br><span class="line"><span class="tag">or</span></span><br><span class="line"><span class="tag">normalize-html5</span>()</span><br></pre></td></tr></table></figure>
+<h3 id="u4E0Egulp_u914D_u5408_u4F7F_u7528"><a href="#u4E0Egulp_u914D_u5408_u4F7F_u7528" class="headerlink" title="与gulp配合使用"></a>与gulp配合使用</h3><p><code>gulpfile.js</code>这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp         = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="keyword">var</span> stylus       = <span class="built_in">require</span>(<span class="string">'gulp-stylus'</span>);</span><br><span class="line"><span class="keyword">var</span> nib          = <span class="built_in">require</span>(<span class="string">'nib'</span>);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'stylus'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    gulp.src(<span class="string">'styl/*.styl'</span>)</span><br><span class="line">        .pipe(stylus(</span><br><span class="line">            &#123; use: [nib()] &#125;  <span class="comment">// 直接调用nib，就可以一并编译</span></span><br><span class="line">        ))</span><br><span class="line">        .pipe(gulp.dest(<span class="string">'css/'</span>))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/29/advance-stylus-in-30-min/" data-id="cij1759gf0006b78z4o1z4fc8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-get-started-with-browserify-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/19/get-started-with-browserify-in-30-min/" class="article-date">
+  <time datetime="2015-08-19T07:01:15.000Z" itemprop="datePublished">2015-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/19/get-started-with-browserify-in-30-min/">30分钟上手Browserify</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>使用<a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a>代替npm </li>
+</ul>
+<h3 id="u521D_u59CB_u6587_u4EF6_u5939_u7ED3_u6784"><a href="#u521D_u59CB_u6587_u4EF6_u5939_u7ED3_u6784" class="headerlink" title="初始文件夹结构"></a>初始文件夹结构</h3><p>初始文件夹结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app.js</span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure>
+<p><code>app.js</code>暂时为空，<code>index.html</code>为最基本html结构，引入<code>app.js</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>browserify-test<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"app.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在<code>app.js</code>中增加简单的代码<code>alert(&#39;hello browserify!&#39;)</code>，在浏览器中打开页面，可见弹出提示。</p>
+<h3 id="u4E0B_u8F7D_u5E76_u4FDD_u5B58Browserify_u5230_u9879_u76EE"><a href="#u4E0B_u8F7D_u5E76_u4FDD_u5B58Browserify_u5230_u9879_u76EE" class="headerlink" title="下载并保存Browserify到项目"></a>下载并保存Browserify到项目</h3><p>首先，使用<code>npm init</code>命令生成<code>package.json</code>文件。</p>
+<p>然后，使用以下命令下载Browserify并保存为开发依赖包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install browserify --save-dev</span><br></pre></td></tr></table></figure>
+<p>完成后，<code>package.json</code>中应该会增加下面的部分：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"devDependencies": &#123;</span><br><span class="line">  "browserify": "^11.0.1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Browserify__u548CNPM"><a href="#Browserify__u548CNPM" class="headerlink" title="Browserify 和NPM"></a>Browserify 和NPM</h3><p>使用npm安装的依赖包，Browserify可以自动识别。以jQuery为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install jquery --save</span><br></pre></td></tr></table></figure>
+<p>下载完成后，在<code>index.html</code>增加：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>然后，在<code>app.js</code>中对<code>main</code>这个<code>div</code>作简单处理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用jQuery就是这么简单！</span></span><br><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">$(<span class="string">'.main'</span>).text(<span class="string">'hello browserify!'</span>);</span><br></pre></td></tr></table></figure>
+<p>如果这时在浏览器中打开<code>index.html</code>是会报错的，因为浏览器本身不懂得处理文件之间的依赖关系，需要使用Browserify打包文件后才可以看到效果。</p>
+<h3 id="u4F7F_u7528Browserify_u6253_u5305_u6587_u4EF6"><a href="#u4F7F_u7528Browserify_u6253_u5305_u6587_u4EF6" class="headerlink" title="使用Browserify打包文件"></a>使用Browserify打包文件</h3><p>首先，把<code>index.html</code>引入的js文件从<code>app.js</code>改为<code>bundle.js</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bundle.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>bundle.js</code>从哪里来呢？</p>
+<p>在<code>package.json</code>中增加以下部分：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "build": "browserify app.js -o bundle.js"</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>然后在命令行运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>完成以后可以发现，文件夹下新增了<code>bundle.js</code>，这时候打开<code>index.html</code>应该就可以正常看到文字了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browserify app.js -o bundle.js</span><br></pre></td></tr></table></figure>
+<p>这个命令所做的，就是把<code>app.js</code>所依赖的所有文件都打包到<code>bundle.js</code>里面去。打开<code>bundle.js</code>可以看到<code>app.js</code>和jQuery的内容。</p>
+<h3 id="u4F7F_u7528Watchify_u5B9E_u73B0_u5B9E_u65F6_u6587_u4EF6_u6253_u5305"><a href="#u4F7F_u7528Watchify_u5B9E_u73B0_u5B9E_u65F6_u6587_u4EF6_u6253_u5305" class="headerlink" title="使用Watchify实现实时文件打包"></a>使用Watchify实现实时文件打包</h3><p>使用<code>npm run build</code>命令，只会在运行之后打包一次文件。在开发的时候每做一次改动，就跑一次这个命令，显然不现实。所以在项目中安装Watchify这个工具来实现实时文件打包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install watchify --save-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"devDependencies": &#123;</span><br><span class="line">  "browserify": "^11.0.1",</span><br><span class="line">  "watchify": "^3.3.1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>package.json</code>文件中增加<code>watch</code>指令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "build": "browserify app.js -o bundle.js",</span><br><span class="line">    "watch": "watchify app.js -o bundle.js"</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>现在，在命令行运行<code>npm run watch</code>，并对文件做一些改动，就可以实时见到效果了。</p>
+<h3 id="u5C1D_u8BD5_u589E_u52A0_u81EA_u5DF1_u7684_u6A21_u5757"><a href="#u5C1D_u8BD5_u589E_u52A0_u81EA_u5DF1_u7684_u6A21_u5757" class="headerlink" title="尝试增加自己的模块"></a>尝试增加自己的模块</h3><p>Browserify可以使用通过<code>npm</code>下载的包，非常方便。但它的用处绝不仅于此。在开发的时候，把自己的代码模块化，然后<code>export</code>出去，在Browserify中也可以使用<code>require</code>来获得。</p>
+<p>现在，把问候语强化成一个小模块<code>salutation.js</code>，放在<code>utils</code>文件夹下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建自己的模块</span></span><br><span class="line"><span class="keyword">var</span> salutation = <span class="function"><span class="keyword">function</span> (<span class="params">container</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> greetingsList = [</span><br><span class="line">        <span class="string">'Nice to see you here!'</span>,</span><br><span class="line">        <span class="string">'很高兴见到你！'</span>,</span><br><span class="line">        <span class="string">'Alohaaaaaaa!'</span>,</span><br><span class="line">        <span class="string">'Beep Boop!'</span></span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> max = greetingsList.length;</span><br><span class="line">    <span class="keyword">var</span> randomIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * max);</span><br><span class="line"></span><br><span class="line">    container.text(greetingsList[randomIndex]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把模块export出去</span></span><br><span class="line"><span class="built_in">module</span>.exports = salutation;</span><br></pre></td></tr></table></figure>
+<p>在<code>app.js</code>中引入这个模块，并使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line"><span class="comment">// 引入自己的salutation模块</span></span><br><span class="line"><span class="keyword">var</span> salutation = <span class="built_in">require</span>(<span class="string">'./utils/salutation.js'</span>);</span><br><span class="line"></span><br><span class="line">salutation($(<span class="string">'.main'</span>));</span><br></pre></td></tr></table></figure>
+<p>不断刷新页面可见效果。</p>
+<h3 id="u4E3B_u89C2_u4F7F_u7528_u611F_u53D7"><a href="#u4E3B_u89C2_u4F7F_u7528_u611F_u53D7" class="headerlink" title="主观使用感受"></a>主观使用感受</h3><ul>
+<li>直接<code>module.exports</code>输出模块，<code>require</code>使用模块，直观方便</li>
+<li><a href="/">和backbone一起使用的时候，是否有办法实现css, js按需加载？</a></li>
+<li><a href="/">如何把文件分开打包，而不是打包到一个大文件中去？</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/19/get-started-with-browserify-in-30-min/" data-id="cij1759g30002b78zcw0ye8q8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-get-stared-with-rjs-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/16/get-stared-with-rjs-in-30-min/" class="article-date">
+  <time datetime="2015-08-16T08:06:38.000Z" itemprop="datePublished">2015-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/16/get-stared-with-rjs-in-30-min/">30分钟上手RequireJS打包及优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>requirejs: 2.1.19</li>
+</ul>
+<p>本篇记录的是在不适用任何自动化工具（如<a href="/">Grunt</a>或<a href="/">Gulp</a>）的情况下，使用r.js对项目进行打包和优化。<br>使用自动化工具时配置的方法基本大同小异，届时根据该工具所用插件的文档进行适当调整即可。</p>
+<p>几个简单的优化目标：</p>
+<ul>
+<li>把通用库打包到一个文件</li>
+<li>自定义的模块按需进行合并</li>
+<li>js文件压缩</li>
+</ul>
+<h3 id="u6587_u4EF6_u5939_u7ED3_u6784"><a href="#u6587_u4EF6_u5939_u7ED3_u6784" class="headerlink" title="文件夹结构"></a>文件夹结构</h3><p>首先，我从<a href="http://requirejs.org/docs/download.html#rjs" target="_blank" rel="external">官网链接</a>找到r.js，并下载到对应文件夹中。</p>
+<p>当前文件夹结构如下（文件夹中的内容均与<a href="/">30分钟上手RequireJS</a>的一致）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dev</span><br><span class="line">├── assets</span><br><span class="line">│   └── js</span><br><span class="line">│       ├── comm on.js  // 此文件为空，是为了最后把通用依赖包都打包到一齐而准备的。</span><br><span class="line">│       ├── global.js</span><br><span class="line">│       ├── lib</span><br><span class="line">│       │   ├── backbone-<span class="number">1.1</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── jquery-<span class="number">1.11</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── r.js</span><br><span class="line">│       │   ├── requirejs-<span class="number">2.1</span>.<span class="number">19</span>.min.js</span><br><span class="line">│       │   └── underscore-<span class="number">1.8</span>.<span class="number">3</span>.min.js</span><br><span class="line">│       ├── requirejsConfig.js</span><br><span class="line">│       └── tipText.js</span><br><span class="line">├── index-modern.html</span><br><span class="line">├── index-old-school.html</span><br><span class="line">└── <span class="built_in">test</span>Require.js</span><br></pre></td></tr></table></figure>
+<h3 id="u521B_u5EFAbuild-js"><a href="#u521B_u5EFAbuild-js" class="headerlink" title="创建build.js"></a>创建build.js</h3><p>在<code>dev</code>文件夹的同层新建<code>build.js</code>文件。它是使用r.js进行优化时需要用到的配置文件。</p>
+<p>期望在进行优化后，文件夹结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── dev</span><br><span class="line">├── dist   // 最后使用r.js创建的文件夹，不需要手动创建</span><br><span class="line">└── build.js</span><br></pre></td></tr></table></figure>
+<p>接下来看看<code>build.js</code>文件常用的配置项：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appDir: <span class="string">'dev'</span></span><br></pre></td></tr></table></figure>
+<p><code>appDir</code>顾名思义，指向的就是项目源文件的文件夹。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseUrl: <span class="string">'assets/js'</span></span><br></pre></td></tr></table></figure>
+<p><code>baseUrl</code>指的是模块文件的base路径。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir: <span class="string">'dist'</span></span><br></pre></td></tr></table></figure>
+<p><code>dir</code>指向的是优化后的文件的存放文件夹。</p>
+<p>所以，<code>appDir</code> 是源，<code>dir</code>是目的地。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mainConfigFile: <span class="string">'dev/assets/js/requirejsConfig.js'</span>,</span><br></pre></td></tr></table></figure>
+<p><code>mainConfigFile</code>指向的是RequireJS的配置文件，详情可见<a href="/">30分钟上手RequireJS</a>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">modules: [</span><br><span class="line">	<span class="comment">// 首先定义通用的module</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 每个module的name是相对于baseUrl的路径</span></span><br><span class="line">		name: <span class="string">'common'</span>,</span><br><span class="line">		include: [</span><br><span class="line">			<span class="string">'jquery'</span>,</span><br><span class="line">			<span class="string">'backbone'</span>,</span><br><span class="line">			<span class="string">'underscore'</span>,</span><br><span class="line">			<span class="string">'requirejs'</span></span><br><span class="line">		]</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">// 下面是每一个页面需要用到的模块</span></span><br><span class="line">	<span class="comment">// include页面依赖的模块，这里只把tipText和global合并</span></span><br><span class="line">	<span class="comment">// exclude已经打包好的common</span></span><br><span class="line">	&#123;</span><br><span class="line">		name: <span class="string">'tipText'</span>,</span><br><span class="line">		include: [<span class="string">'tipText'</span>, <span class="string">'global'</span>],</span><br><span class="line">		exclude: [<span class="string">'common'</span>]</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><code>modules</code>就是进行打包合并的重点部分。首先把通用的依赖包打包到common.js里面。再处理每一个页面需要的模块。由于已经有common这个模块，各个页面的模块中就不需要把它包含在内了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">paths: &#123;</span><br><span class="line">	backbone: <span class="string">'empty:'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>requirejsConfig.js</code>中设置了从CDN请求的文件，必须作如下设置，否则会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimize: <span class="string">'uglify2'</span></span><br></pre></td></tr></table></figure>
+<p><code>optimize</code>项配置的是需要使用的JS压缩引擎。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizeCss: <span class="string">'standard'</span></span><br></pre></td></tr></table></figure>
+<p><code>optimizeCss</code>顾名思义，压缩CSS的模式。配置<code>standard</code>就可以压缩CSS文件。<br>这时候，也许你会说，连CSS都可以帮忙压缩真是太强大了。而我个人就认为：未免管得太多了。</p>
+<p>更多配置选项，可以参考官方的<a href="https://github.com/jrburke/r.js/blob/master/build/example.build.js" target="_blank" rel="external">example.build.js</a>。</p>
+<h3 id="u5F00_u59CB_u6253_u5305_u548C_u4F18_u5316"><a href="#u5F00_u59CB_u6253_u5305_u548C_u4F18_u5316" class="headerlink" title="开始打包和优化"></a>开始打包和优化</h3><p>进入项目文件夹下，运行以下命令，就可以开始打包和优化了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node dev/assets/js/lib/r.js -o build.js</span><br></pre></td></tr></table></figure>
+<p>完成以后打开<code>build</code>文件夹中的<code>index-morden.html</code>, 跟原来的一样，没有变化。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'global'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, GLOBALVAR, test</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>但其实这个时候已经不需要分别<code>require</code> <code>tipText</code>和<code>global</code>了，因为已经合并到<code>tipText</code>文件中，所以可以改成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, test</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>打开控制台，刷新页面，依然可以见到log出来的<code>GLOBALVAR</code>对象。</p>
+<p>在开发者工具的<code>networks</code>查看<code>tipText.js</code>，可以见到其实源代码中的<code>tipText</code>和<code>global</code>的内容已经合并，并且压缩。</p>
+<h3 id="u4E3B_u89C2_u4F7F_u7528_u611F_u53D7"><a href="#u4E3B_u89C2_u4F7F_u7528_u611F_u53D7" class="headerlink" title="主观使用感受"></a>主观使用感受</h3><ul>
+<li>初学者极度不友好。无论是RequireJS本身，还是优化工具r.js，都需要各种繁琐的配置。</li>
+<li>没有简明清晰的说明文档。文档是很详尽，可惜我没有看明白。花了很多时间去搜索研究，极大地增加了学习成本。</li>
+<li>打包前后<code>require</code>的文件可能会变化。我把<code>tipText</code>和<code>global</code>合并了，还要到引用的地方改一下。（可能是还没有找到章法吧）</li>
+<li>研究到了最后，并没有预期中的效果那么好。（预期：各种配置？好吧，好好配置，不然机器怎么知道哪是哪呢？结果：怎么我都配好了，还是有浓重的不智能感？）</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/16/get-stared-with-rjs-in-30-min/" data-id="cij1759g90004b78zbzgwheys" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-get-started-with-requirejs-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/15/get-started-with-requirejs-in-30-min/" class="article-date">
+  <time datetime="2015-08-15T08:46:16.000Z" itemprop="datePublished">2015-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/15/get-started-with-requirejs-in-30-min/">30分钟上手RequireJS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到<a href="/">30分钟上手RequireJS打包及优化</a>。</p>
+<p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>requirejs: 2.1.19</li>
+</ul>
+<p>###为什么折腾RequireJS<br>在2015年8月份以前，我没有理解过什么是AMD，什么是CMD。我也从来没有想过有需要去了解。毕竟library这些东西，上手知道大概怎么用就好了。直到我因为想要调整工作项目框架中的Gruntfile。</p>
+<p>它里面RequireJS配置的部分简直就是<strong>毒瘤</strong>一样的存在，所以激发了我要折腾RequireJS明白的欲望。</p>
+<p>作为一个循规蹈矩的人，想要了解一个工具，当然是从<a href="http://requirejs.org/" target="_blank" rel="external">官网</a>开始了。</p>
+<blockquote>
+<p>RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.</p>
+</blockquote>
+<p>Yaaayyy！没有看明白！！！</p>
+<p>加之所有需要细看的正文字体都好小，不想看怎么办…… </p>
+<p>看来只能召唤大谷歌了。</p>
+<p>所以这篇将是大杂烩式的记录。</p>
+<p>###文件夹结构<br>这次的初始文件夹结构如下，我事先把需要用到的JS文件都复制好了在<code>assets/js/lib</code>下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dev</span><br><span class="line">  ├── assets</span><br><span class="line">  │   └── js</span><br><span class="line">  │       ├── lib</span><br><span class="line">  │       │   ├── backbone-<span class="number">1.1</span>.<span class="number">2</span>.min.js</span><br><span class="line">  │       │   ├── jquery-<span class="number">1.11</span>.<span class="number">2</span>.min.js</span><br><span class="line">  │       │   ├── requirejs-<span class="number">2.1</span>.<span class="number">19</span>.min.js</span><br><span class="line">  │       │   └── underscore-<span class="number">1.8</span>.<span class="number">3</span>.min.js</span><br><span class="line">  │       └── requirejsConfig.js</span><br><span class="line">  ├── index-modern.html</span><br><span class="line">  └── index-old-school.html</span><br></pre></td></tr></table></figure>
+<p>###瘦身前后快照对比<br>老式的JS文件引入方法，就是在HTML底部一个一个<code>script</code>地加，而且还一定要理好顺序，否则浏览器就要发你脾气。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Old School Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--要听妈妈的话，一个个排好队哦--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/jquery-1.11.2.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/underscore-1.8.3.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/backbone-1.1.2.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--报告！都到齐了--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the old school way of including js files'</span>);</span><br><span class="line">            $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- including them one after another behind the &lt;body&gt; tag.'</span>);</span><br><span class="line">            $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">        &#125;)()</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后我们来感受一下RequireJS的苗条。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Modern Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--要听妈妈的话，一个个排好队哦--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">data-main</span>=<span class="value">"assets/js/requirejsConfig"</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/requirejs-2.1.19.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--诶？！怎么只有你一个？--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the MODERN way of including js files'</span>);</span><br><span class="line">            $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- using REQUIRE JS!!!.'</span>);</span><br><span class="line">    	     $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">        &#125;)()</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>看到这里，你一定会说，这不科学，单单引入RequireJS就可以？你是出来骗小学生的吧？想要达到根上面一样的效果，不引入要用的那些库，浏览器根本就是罢工好吗？</p>
+<p>这就是即将要说明的：</p>
+<h3 id="data-main_u7684_u9B54_u6CD5"><a href="#data-main_u7684_u9B54_u6CD5" class="headerlink" title="data-main的魔法"></a>data-main的魔法</h3><p>RequireJS苗条版，除了只引入了RequireJS本身，最可疑的地方就是这个<code>script</code>的<code>data-main</code>属性了。<code>assets/js/requirejsConfig</code>看上去是个文件路径吧？说！里面写了些什么？</p>
+<p>既然你这么机灵，没办法，只能坦白从宽了。</p>
+<p><code>data-main</code>指向的文件，其实可以看成是RequireJS的配置文件。加载完RequireJS以后，第一张会加载的<code>script</code>就是<code>data-main</code>所指。</p>
+<h3 id="requirejs-config"><a href="#requirejs-config" class="headerlink" title="requirejs.config"></a>requirejs.config</h3><p>在<code>assets/js/requirejsConfig</code>里面，使用requirejs.config方法对RequireJS进行配置。接下来会从简说明一下配置文件中常用的参数。</p>
+<p>注意： requirejs.config中的文件路径均为相对于index.html的路径。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseUrl: <span class="string">'assets/js'</span>,</span><br></pre></td></tr></table></figure>
+<p><code>baseUrl</code>是本config文件中用到的所有文件的路径base。所有文件最终形式都是baseUrl + path（接下来马上会说明）。</p>
+<p>以jquery为例，如下配置以后RequireJS就会知道，jquery的路径为：‘assets/js/lib/jquery-1.11.2.min.js’。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">paths: &#123;</span><br><span class="line">    <span class="comment">// 路径中不需要添加文件后缀</span></span><br><span class="line">    jquery    : <span class="string">'lib/jquery-1.11.2.min'</span>,</span><br><span class="line">    underscore: <span class="string">'lib/underscore-1.8.3.min'</span>,</span><br><span class="line">    backbone  : <span class="string">'lib/backbone-1.1.2.min'</span>,</span><br><span class="line">    requirejs : <span class="string">'lib/requirejs-2.1.19.min'</span></span><br><span class="line">    backbone  : [</span><br><span class="line">        <span class="comment">// 如果希望使用CDN地址，可以这样配置</span></span><br><span class="line">        <span class="string">'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min'</span>,</span><br><span class="line">        <span class="comment">// CDN加载失败时，会自动从下面这条路径加载文件</span></span><br><span class="line">        <span class="string">'backbone-1.1.2.min'</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Tips：一个个找文件路径很麻烦？如果你的项目中有使用Bower，用<code>bower --paths</code>命令，就可以轻松列出所有包的路径了。</p>
+<p>定义好paths以后，在使用define方法的时候，就可以直接使用paths对象里面的key，不需要写长到爆的JS文件名了。</p>
+<h3 id="define_u65B9_u6CD5"><a href="#define_u65B9_u6CD5" class="headerlink" title="define方法"></a>define方法</h3><p>在苗条版最下方，你会看到我还是用了老方法来执行jquery方法。下面我们一起来尝试RequireJS的define方法吧。</p>
+<p>首先把苗条版最后的jquery方法提取出来，放到<code>assets/js/tipText.js</code>里面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">    $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the MODERN way of including js files'</span>);</span><br><span class="line">    $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- using REQUIRE JS!!!.'</span>);</span><br><span class="line">    $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>define方法接受的参数，第一个是需要依赖的模块，以数组形式传入。在接下来的function中，记得一定要<strong>对应数组顺序</strong>，给它传入参数。</p>
+<p>比方说，我的依赖模块是jquery和underscore，function的参数就需要按顺序是<code>$</code>和<code>_</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$, _</span>) </span>&#123; ...... &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你非要给function先传<code>_</code>再<code>$</code>，也不是不可以。只要你记得<code>_</code>是jquery，<code>$</code>是underscore就好了。</p>
+<p>非要试一下是吧？没问题，直接尝试下面这样写，然后刷新页面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$, _</span>) </span>&#123; </span><br><span class="line">    $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>……</p>
+<p>相信了吧？</p>
+<p>乖乖地<strong>按照顺序</strong>来吧。</p>
+<p>但是如果要依赖的模块超级多，要一个一个写到数组里面然后在function里面对应加，那会烦到爆啊！</p>
+<p>对！所以可以像下面这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">  <span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'underscore'</span>);</span><br><span class="line">  ......</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="require_u65B9_u6CD5"><a href="#require_u65B9_u6CD5" class="headerlink" title="require方法"></a>require方法</h3><p>好了，既然我们把原有的jquery方法提取了出来，接着要怎么使用呢？</p>
+<p>很简单，为了方便我们暂时直接在引用完RequireJS之后调用require方法吧。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Modern Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">data-main</span>=<span class="value">"assets/js/requirejsConfig"</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/requirejs-2.1.19.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        <span class="built_in">require</span>([<span class="string">'tipText'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText</span>) </span>&#123; &#125;);</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>由于我们的tipText文件目前只是对html做了一些简单处理，直接这样就可以了。刷新页面可以看到效果。</p>
+<p>require方法接受的参数和参数规则与define方法一致。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText</span>) </span>&#123; &#125;);</span><br></pre></td></tr></table></figure>
+<p>数组中依赖的模块，使用相对<code>requirejsConfig.js</code>的路径。试一下在dev下面新建<code>testRequire.js</code>文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dev</span><br><span class="line">├── assets</span><br><span class="line">│   └── js</span><br><span class="line">│       ├── lib</span><br><span class="line">│       │   ├── backbone-<span class="number">1.1</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── jquery-<span class="number">1.11</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── requirejs-<span class="number">2.1</span>.<span class="number">19</span>.min.js</span><br><span class="line">│       │   └── underscore-<span class="number">1.8</span>.<span class="number">3</span>.min.js</span><br><span class="line">│       ├── requirejsConfig.js</span><br><span class="line">│       └── tipText.js</span><br><span class="line">├── index-modern.html</span><br><span class="line">├── index-old-school.html</span><br><span class="line">└── <span class="built_in">test</span>Require.js  // require方法引用模块路径测试文件</span><br></pre></td></tr></table></figure>
+<p>如果直接在require方法中这样引入，RequireJS是会报script error的。因为与<code>requirejsConfig.js</code>同级的文件中找不到<code>testRequire.js</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire</span>) </span>&#123; &#125;);</span><br></pre></td></tr></table></figure>
+<p>改成下面这样页面就可以正常显示了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire</span>) </span>&#123;  &#125;);</span><br></pre></td></tr></table></figure>
+<p>###普通js也可以作为模块引入吗？<br>答案是，让人兴奋的，<strong>可以</strong>哟~</p>
+<p>下面我们直接在js文件夹新建<code>global.js</code>文件，文件里面就这样定义一个简单对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GLOBALVAR = &#123;</span><br><span class="line">    amd: <span class="string">'requirejs'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在<code>requireConfig.js</code>里面，增加一个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非amd的js，可以通过shim object来设置。</span></span><br><span class="line"><span class="comment">// 这样就可以作为依赖模块在require方法中使用。</span></span><br><span class="line">shim: &#123;</span><br><span class="line">    <span class="string">'global'</span>: &#123;</span><br><span class="line">        exports: <span class="string">'GLOBALVAR'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在require方法中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>, <span class="string">'global'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire, GLOBALVAR</span>) </span>&#123; </span><br><span class="line">	<span class="comment">// 获取shim object中的GLOBALVAR</span></span><br><span class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u57FA_u672C_u539F_u7406_u603B_u7ED3"><a href="#u57FA_u672C_u539F_u7406_u603B_u7ED3" class="headerlink" title="基本原理总结"></a>基本原理总结</h3><ul>
+<li>引入RequireJS, 在data-main属性中指明配置文件</li>
+<li>使用define方法自定义模块。define时声明需要依赖的模块</li>
+<li>通过require方法使用自定义的模块。RequireJS会知道自定义模块依赖了哪些模块并一起加载</li>
+</ul>
+<p>如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到<a href="/">30分钟上手RequireJS打包及优化</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/15/get-started-with-requirejs-in-30-min/" data-id="cij1759fu0000b78z4yqmjt45" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-get-started-with-bower-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/10/get-started-with-bower-in-30-min/" class="article-date">
+  <time datetime="2015-08-10T14:39:56.000Z" itemprop="datePublished">2015-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/10/get-started-with-bower-in-30-min/">30分钟上手Bower</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Bower是一个前端的包管理工具，用于管理项目中的需要用到的依赖包十分方便。</p>
+<p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>使用<a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a>代替npm </li>
+</ul>
+<h3 id="u5B89_u88C5Bower"><a href="#u5B89_u88C5Bower" class="headerlink" title="安装Bower"></a>安装Bower</h3><ul>
+<li>全局安装Bower</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g bower</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看版本信息</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower -v</span><br><span class="line"><span class="number">1.3</span>.<span class="number">12</span></span><br></pre></td></tr></table></figure>
+<h3 id="u4F7F_u7528Bower"><a href="#u4F7F_u7528Bower" class="headerlink" title="使用Bower"></a>使用Bower</h3><p>安装完成后，可以在命令行直接使用<code>bower</code>命令。</p>
+<p>下面来尝试新建一个文件夹，并在文件夹路径下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install jquery</span><br></pre></td></tr></table></figure>
+<p>Bower会在该目录下生成<code>bower_components</code>文件夹，并把下载好的包放在这个文件夹里面。此时目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">└── bower_components</span><br><span class="line">    └── jquery</span><br><span class="line">        ├── MIT-LICENSE.txt</span><br><span class="line">        ├── bower.json</span><br><span class="line">        ├── dist</span><br><span class="line">        │   ├── jquery.js</span><br><span class="line">        │   ├── jquery.min.js</span><br><span class="line">        │   └── jquery.min.map</span><br><span class="line">        └── src</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>在执行刚才的<code>bower install</code>命令时，可以看到terminal里面的Bower进度提示如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower install jquery</span><br><span class="line">bower jquery<span class="comment">#*                  cached git://github.com/jquery/jquery.git#2.1.4</span></span><br><span class="line">bower jquery<span class="comment">#*                validate 2.1.4 against git://github.com/jquery/jquery.git#*</span></span><br><span class="line">bower jquery<span class="comment">#~2.1.4            install jquery#2.1.4</span></span><br></pre></td></tr></table></figure>
+<p>从<code>bower jquery#~2.1.4</code>可以发现Bower是通过<code>#</code>号来确定需要下载的版本，我们没有指定版本，Bower自动帮我们下载最新的。所以，如果需要下载特定版本的包，可以在安装命令中使用<code>#</code>号来声明。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower install jquery<span class="comment">#1.9.1</span></span><br><span class="line">bower jquery<span class="comment">#1.9.1          not-cached git://github.com/jquery/jquery.git#1.9.1</span></span><br><span class="line">bower jquery<span class="comment">#1.9.1             resolve git://github.com/jquery/jquery.git#1.9.1</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><code>bower install</code>命令还有更多其他<a href="http://bower.io/docs/api/#install" target="_blank" rel="external">options</a>可以使用。这里暂时不作介绍。</p>
+<h3 id="u67E5_u770B_u5F53_u524DBower_u4E0B_u8F7D_u8FC7_u7684_u5305"><a href="#u67E5_u770B_u5F53_u524DBower_u4E0B_u8F7D_u8FC7_u7684_u5305" class="headerlink" title="查看当前Bower下载过的包"></a>查看当前Bower下载过的包</h3><p><code>bower list</code>命令可以查看当前下载过的包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower list</span><br><span class="line">bower check-new     Checking <span class="keyword">for</span> new versions of the project dependencies..</span><br><span class="line">bower-test /Users/levblanc/projects/bower-test</span><br><span class="line">└── jquery<span class="comment">#1.9.0 extraneous (latest is 3.0.0-alpha1+compat)</span></span><br></pre></td></tr></table></figure>
+<p><code>bower list --paths</code>命令可以查看当前下载过的所有包的在项目中的对应路径。<br><strong>这个命令最有用的时刻，就是在其它工具中需要声明/配置前端依赖包地址的时候。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower list --paths</span><br><span class="line"></span><br><span class="line">  jquery: <span class="string">'bower_components/jquery/jquery.js'</span></span><br></pre></td></tr></table></figure>
+<h3 id="u4F7F_u7528bower-json_u6587_u4EF6_u7BA1_u7406_u4F9D_u8D56_u5305"><a href="#u4F7F_u7528bower-json_u6587_u4EF6_u7BA1_u7406_u4F9D_u8D56_u5305" class="headerlink" title="使用bower.json文件管理依赖包"></a>使用bower.json文件管理依赖包</h3><p>跟NodeJs的<code>package.json</code>文件一样，可以通过<code>bower.json</code>文件来管理项目需要下载的包。这样项目组里的其它成员就不需要逐一去<code>bower install</code>各种包了。</p>
+<p><code>bower.json</code>文件的生成方法与<code>package.json</code>也非常类似。可以通过<code>bower init</code>命令来生成，也可以手动直接在项目根目录下创建。</p>
+<p>使用<code>bower init</code>命令的话，Bower会问一些问题，直接回答即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">❯❯❯❯❯❯ bower init</span><br><span class="line">? name: bower-test</span><br><span class="line">? version: <span class="number">0.0</span>.<span class="number">0</span></span><br><span class="line">? description:</span><br><span class="line">? main file:</span><br><span class="line">? what types of modules does this package expose?: amd</span><br><span class="line">? keywords: bower</span><br><span class="line">? authors: <span class="built_in">test</span>@testbower.com</span><br><span class="line">? license: MIT</span><br><span class="line">? homepage:</span><br><span class="line">? <span class="built_in">set</span> currently installed components as dependencies?: Yes</span><br><span class="line">? add commonly ignored files to ignore list?: Yes</span><br><span class="line">? would you like to mark this package as private <span class="built_in">which</span> prevents it from being accidentally published to the registry?: (y/N) ? would you like to mark this package as private <span class="built_in">which</span> prevents it from being accidentally published to the registry?: Yes</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  name: <span class="string">'bower-test'</span>,</span><br><span class="line">  version: <span class="string">'0.0.0'</span>,</span><br><span class="line">  authors: [</span><br><span class="line">    <span class="string">'test@testbower.com'</span></span><br><span class="line">  ],</span><br><span class="line">  moduleType: [</span><br><span class="line">    <span class="string">'amd'</span></span><br><span class="line">  ],</span><br><span class="line">  keywords: [</span><br><span class="line">    <span class="string">'bower'</span></span><br><span class="line">  ],</span><br><span class="line">  license: <span class="string">'MIT'</span>,</span><br><span class="line">  private: <span class="literal">true</span>,</span><br><span class="line">  ignore: [</span><br><span class="line">    <span class="string">'**/.*'</span>,</span><br><span class="line">    <span class="string">'node_modules'</span>,</span><br><span class="line">    <span class="string">'bower_components'</span>,</span><br><span class="line">    <span class="string">'test'</span>,</span><br><span class="line">    <span class="string">'tests'</span></span><br><span class="line">  ],</span><br><span class="line">  dependencies: &#123;</span><br><span class="line">    backbone: <span class="string">'~1.2.1'</span>,</span><br><span class="line">    jquery: <span class="string">'1.9.0'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">? Looks good?: Yes</span><br></pre></td></tr></table></figure>
+<p>完成所有问题以后，会在项目根目录生成<code>bower.json</code>文件。手动创建的话，跟随对应格式即可。此时文件夹结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── bower.json</span><br><span class="line">└── bower_components</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>当项目文件夹下已有<code>bower.json</code>文件时，直接执行<code>bower install</code>命令，便会自动下载所有依赖包。</p>
+<p>###下载并保存依赖包到bower.json</p>
+<p>使用安装命令的<code>-S</code>option（注意S必须是大写），可以在下载的同时，把这次下载的包的信息自动加入到<code>bower.json</code>文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install -S backbone</span><br></pre></td></tr></table></figure>
+<p>下载完成后<code>bower.json</code>文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"jquery"</span>: <span class="string">"1.9.0"</span>,</span><br><span class="line">  <span class="string">"backbone"</span>: <span class="string">"~1.2.1"</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="Bower_u81EA_u5B9A_u4E49"><a href="#Bower_u81EA_u5B9A_u4E49" class="headerlink" title="Bower自定义"></a>Bower自定义</h3><p>如果想要把依赖包下载到自己希望的目录，怎么办呢？很简单，使用<code>.bowerrc</code>文件就可以了。</p>
+<p>在项目根目录创建<code>.bowerrc</code>文件，使用<code>json</code>格式来写。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"directory"</span>: <span class="string">"app/vender/"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>保存好以后，执行<code>bower install</code>命令可以见到效果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app</span><br><span class="line">│   └── vendor</span><br><span class="line">│       ├── backbone</span><br><span class="line">│       │   ...</span><br><span class="line">│       ├── jquery</span><br><span class="line">│       │   ...</span><br><span class="line">│</span><br><span class="line">└── bower.json</span><br></pre></td></tr></table></figure>
+<p>注意：<code>.bowerrc</code>文件需要与<code>bower.json</code>结合使用。在<code>.bowerrc</code>中声明了下载目录之后之所以能够自动下载包，是因为在<code>bower.json</code>的<code>dependencies</code>中声明过。</p>
+<p><a href="http://bower.io/docs/config/" target="_blank" rel="external">更多bower配置选项，可参考官网</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/10/get-started-with-bower-in-30-min/" data-id="cij1759g50003b78z133x0h03" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-building-github-pages-blog-with-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/13/building-github-pages-blog-with-hexo/" class="article-date">
+  <time datetime="2015-07-13T13:04:00.000Z" itemprop="datePublished">2015-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/13/building-github-pages-blog-with-hexo/">如何使用Hexo搭建Github Pages博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="u5199_u5728_u524D_u9762"><a href="#u5199_u5728_u524D_u9762" class="headerlink" title="写在前面"></a>写在前面</h3><p>本机环境：</p>
+<ul>
+<li>OS:     Yosemite 10.10.2</li>
+<li>Git:    1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>Hexo:   3.1.1</li>
+</ul>
+<p>需要使用npm安装的命令，可以使用cnpm代替，有助提升速度和成功率。<br>cnpmjs = 淘宝NPM镜像。有<a href="https://cnpmjs.org/" target="_blank" rel="external">英文版说明</a> 和 <a href="https://npm.taobao.org/" target="_blank" rel="external">中文版说明</a></p>
+<p>在本机已安装好Node.js、Git、已有github账号并且配置好SSH key的状态下，<br>跟随正文步骤安装并部署到github pages总过程不超过30分钟。</p>
+<p>如果是小白，需要从零开始的话，各种安装所经历的折腾都是必须的。</p>
+<h3 id="u5B89_u88C5Node-js_u53CAGit"><a href="#u5B89_u88C5Node-js_u53CAGit" class="headerlink" title="安装Node.js及Git"></a>安装Node.js及Git</h3><p>具体方法参见 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a> 及 <a href="http://git-scm.com/" target="_blank" rel="external">Git</a> 官网教程。</p>
+<p>关于SSH key的生成和配置，github有详细的<a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="external">帮助文档</a>可以参考。</p>
+<h3 id="u521B_u5EFA_u535A_u5BA2_u7528_u7684git_u4ED3_u5E93"><a href="#u521B_u5EFA_u535A_u5BA2_u7528_u7684git_u4ED3_u5E93" class="headerlink" title="创建博客用的git仓库"></a>创建博客用的git仓库</h3><p>仓库名称<strong>必须</strong>为 <strong>username</strong>.github.io</p>
+<p>注：username为你在github的用户名</p>
+<p>假设github用户名为john，那你的仓库就必须是<code>john.github.io</code>。如果你创建一个叫做<code>jason.github.io</code>的仓库，最后deploy完以后打开页面是会报错的。</p>
+<p><img src="/../building-github-pages-blog-with-hexo/create-a-new-repository.png" alt="Figure 1. 创建博客用git仓库"><br>（图中标红报错是因为仓库已经创建）</p>
+<p>仓库创建成功后，github会给你该仓库的https和ssh地址，复制ssh地址备用。<br><img src="/../building-github-pages-blog-with-hexo/new-repo-created.png" alt="Figure 2. 创建成功"></p>
+<h3 id="u514B_u9686git_u4ED3_u5E93_u5230_u672C_u5730"><a href="#u514B_u9686git_u4ED3_u5E93_u5230_u672C_u5730" class="headerlink" title="克隆git仓库到本地"></a>克隆git仓库到本地</h3><p>使用GUI工具或命令行，把刚刚创建好的git仓库克隆到本地文件夹中。</p>
+<h3 id="u5B89_u88C5Hexo"><a href="#u5B89_u88C5Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h3 id="u4F7F_u7528_u547D_u4EE4_u884C_uFF0C_u521B_u5EFAHexo_u535A_u5BA2_u9879_u76EE"><a href="#u4F7F_u7528_u547D_u4EE4_u884C_uFF0C_u521B_u5EFAHexo_u535A_u5BA2_u9879_u76EE" class="headerlink" title="使用命令行，创建Hexo博客项目"></a>使用命令行，创建Hexo博客项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 进入刚才创建的博客文件夹 --&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;your-blog-folder&gt;</span><br><span class="line">    </span><br><span class="line">&lt;!-- 初始化博客 --&gt;</span><br><span class="line">$ hexo init</span><br><span class="line">    </span><br><span class="line">&lt;!-- 安装博客项目所需的packages --&gt;</span><br><span class="line">$ cnpm install</span><br></pre></td></tr></table></figure>
+<h3 id="u5B89_u88C5hexo-server"><a href="#u5B89_u88C5hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><p>从Hexo 3开始，hexo-server从hexo项目中分离了出来。需要另外安装，才能在本地把blog跑起来。在命令行运行下面这条的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install hexo-server --save</span><br></pre></td></tr></table></figure>
+<p>server安装成功后，启动server便可以把博客跑起来：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>默认本地运行地址是 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a><br><img src="/../building-github-pages-blog-with-hexo/hexo-blog.png" alt="Figure 3. 本地运行"></p>
+<h3 id="u5728Hexo_u4E2D_u914D_u7F6E_u9879_u76EE_u90E8_u7F72_u4FE1_u606F"><a href="#u5728Hexo_u4E2D_u914D_u7F6E_u9879_u76EE_u90E8_u7F72_u4FE1_u606F" class="headerlink" title="在Hexo中配置项目部署信息"></a>在Hexo中配置项目部署信息</h3><p>在博客文件夹根目录下，找到文件<code>_config.yml</code>。在deploy部分填写配置信息，把repository值设置为刚刚复制好的ssh地址。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deploy:&#10;  type: git&#10;  repository: &#60;your-github-repo-ssh-address&#62;&#10;  branch: master</span><br></pre></td></tr></table></figure>
+<h3 id="u90E8_u7F72_u5230Github_Pages"><a href="#u90E8_u7F72_u5230Github_Pages" class="headerlink" title="部署到Github Pages"></a>部署到Github Pages</h3><p>原生项目中已有一篇默认博客hello world，可以马上尝试部署到github pages。</p>
+<p>删除database和public文件夹<br>（第一次生成网页可以跳过这一步，日后在本地写文章的时候，可能会有更改md文件名等操作，清空这两个地方可以在<code>generate</code>的时候生成一份最新的项目结构）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<p>运行下面的命令生成部署所需的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>在日后写新post的时候如果想实时看到博客展示的变化，可以运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate --watch</span><br></pre></td></tr></table></figure>
+<p>完成后就可以进行部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>如果上面这个步骤报错：<code>ERROR Deployer not found : github</code>，尝试安装<code>hexo-deployer-git</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>完成后再次执行<code>hexo deploy</code>命令，应该可以解决问题。</p>
+<p>如果在部署过程中报 <code>fatal: Not a git repository (or any of the parent directories): .git</code> 这个错，尝试在博客所在文件夹下运行<code>git init</code>命令，然后再次进行部署。</p>
+<p>部署成功后，打开<a href="https://your-github-username.github.io" target="_blank" rel="external">https://your-github-username.github.io</a>，就能看见默认博客。</p>
+<p>至此，hexo的博客生成和部署已经全部成功。</p>
+<h3 id="u521B_u5EFA_u65B0post"><a href="#u521B_u5EFA_u65B0post" class="headerlink" title="创建新post"></a>创建新post</h3><p>在自己的blog目录下，运行下面的命令便可以快速创建一个新post</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>注：</p>
+<p><code>post</code>是默认的<code>layout</code>，<code>title</code>是新post的md文件名和url对应地址。</p>
+<p><code>title</code>不要带空格，如果有空格，创建文件的时候文件名只会是最后一个空格后面的文字。它将会用在该post的url中，而且如果<code>_config.yml</code>中的<code>post_asset_folder</code> <code>true</code>（是否生成与每篇文章对应的资源文件夹，默认值为<code>false</code>），资源文件夹也会直接使用<code>title</code>值，所以建议最好使用英文来创建。真正的文章题目可以在md文件中修改。</p>
+<p>post创建成功后，在 /source/_posts 文件夹下，会生成一个新的markdown文件，文件名就是你刚刚的<code>title</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/07/13/building-github-pages-blog-with-hexo/" data-id="cij1759gb0005b78zd975oj2c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/05/get-started-with-electron-in-30-min/">30分钟Electron入门</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/29/advance-stylus-in-30-min/">30分钟Stylus进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/19/get-started-with-browserify-in-30-min/">30分钟上手Browserify</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/16/get-stared-with-rjs-in-30-min/">30分钟上手RequireJS打包及优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/15/get-started-with-requirejs-in-30-min/">30分钟上手RequireJS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Levblanc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
