@@ -1,1 +1,306 @@
-this is post.jade lalal
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>30分钟上手RequireJS | Keep It Simple Do It Well</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到30分钟上手RequireJS打包及优化。
+本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+requirejs: 2.1.19
+
+###为什么折腾RequireJS在2015年8月份以前，我没有理解过什么是AMD，什么是CMD。我也从来没有想过有需要去了解。毕竟libra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30分钟上手RequireJS">
+<meta property="og:url" content="http://yoursite.com/2015/08/15/get-started-with-requirejs-in-30-min/index.html">
+<meta property="og:site_name" content="Keep It Simple Do It Well">
+<meta property="og:description" content="如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到30分钟上手RequireJS打包及优化。
+本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+requirejs: 2.1.19
+
+###为什么折腾RequireJS在2015年8月份以前，我没有理解过什么是AMD，什么是CMD。我也从来没有想过有需要去了解。毕竟libra">
+<meta property="og:updated_time" content="2015-08-19T07:51:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="30分钟上手RequireJS">
+<meta name="twitter:description" content="如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到30分钟上手RequireJS打包及优化。
+本机环境： 
+
+OS: Yosemite 10.10.2 
+Git: 1.9.5
+Nodejs: 0.10.32
+requirejs: 2.1.19
+
+###为什么折腾RequireJS在2015年8月份以前，我没有理解过什么是AMD，什么是CMD。我也从来没有想过有需要去了解。毕竟libra">
+  
+    <link rel="alternate" href="/atom.xml" title="Keep It Simple Do It Well" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keep It Simple Do It Well</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-get-started-with-requirejs-in-30-min" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/15/get-started-with-requirejs-in-30-min/" class="article-date">
+  <time datetime="2015-08-15T08:46:16.000Z" itemprop="datePublished">2015-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      30分钟上手RequireJS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到<a href="/">30分钟上手RequireJS打包及优化</a>。</p>
+<p>本机环境： </p>
+<ul>
+<li>OS: Yosemite 10.10.2 </li>
+<li>Git: 1.9.5</li>
+<li>Nodejs: 0.10.32</li>
+<li>requirejs: 2.1.19</li>
+</ul>
+<p>###为什么折腾RequireJS<br>在2015年8月份以前，我没有理解过什么是AMD，什么是CMD。我也从来没有想过有需要去了解。毕竟library这些东西，上手知道大概怎么用就好了。直到我因为想要调整工作项目框架中的Gruntfile。</p>
+<p>它里面RequireJS配置的部分简直就是<strong>毒瘤</strong>一样的存在，所以激发了我要折腾RequireJS明白的欲望。</p>
+<p>作为一个循规蹈矩的人，想要了解一个工具，当然是从<a href="http://requirejs.org/" target="_blank" rel="external">官网</a>开始了。</p>
+<blockquote>
+<p>RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.</p>
+</blockquote>
+<p>Yaaayyy！没有看明白！！！</p>
+<p>加之所有需要细看的正文字体都好小，不想看怎么办…… </p>
+<p>看来只能召唤大谷歌了。</p>
+<p>所以这篇将是大杂烩式的记录。</p>
+<p>###文件夹结构<br>这次的初始文件夹结构如下，我事先把需要用到的JS文件都复制好了在<code>assets/js/lib</code>下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dev</span><br><span class="line">  ├── assets</span><br><span class="line">  │   └── js</span><br><span class="line">  │       ├── lib</span><br><span class="line">  │       │   ├── backbone-<span class="number">1.1</span>.<span class="number">2</span>.min.js</span><br><span class="line">  │       │   ├── jquery-<span class="number">1.11</span>.<span class="number">2</span>.min.js</span><br><span class="line">  │       │   ├── requirejs-<span class="number">2.1</span>.<span class="number">19</span>.min.js</span><br><span class="line">  │       │   └── underscore-<span class="number">1.8</span>.<span class="number">3</span>.min.js</span><br><span class="line">  │       └── requirejsConfig.js</span><br><span class="line">  ├── index-modern.html</span><br><span class="line">  └── index-old-school.html</span><br></pre></td></tr></table></figure>
+<p>###瘦身前后快照对比<br>老式的JS文件引入方法，就是在HTML底部一个一个<code>script</code>地加，而且还一定要理好顺序，否则浏览器就要发你脾气。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Old School Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--要听妈妈的话，一个个排好队哦--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/jquery-1.11.2.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/underscore-1.8.3.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/backbone-1.1.2.min.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--报告！都到齐了--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the old school way of including js files'</span>);</span><br><span class="line">            $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- including them one after another behind the &lt;body&gt; tag.'</span>);</span><br><span class="line">            $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">        &#125;)()</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后我们来感受一下RequireJS的苗条。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Modern Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--要听妈妈的话，一个个排好队哦--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">data-main</span>=<span class="value">"assets/js/requirejsConfig"</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/requirejs-2.1.19.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--诶？！怎么只有你一个？--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the MODERN way of including js files'</span>);</span><br><span class="line">            $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- using REQUIRE JS!!!.'</span>);</span><br><span class="line">    	     $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">        &#125;)()</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>看到这里，你一定会说，这不科学，单单引入RequireJS就可以？你是出来骗小学生的吧？想要达到根上面一样的效果，不引入要用的那些库，浏览器根本就是罢工好吗？</p>
+<p>这就是即将要说明的：</p>
+<h3 id="data-main_u7684_u9B54_u6CD5"><a href="#data-main_u7684_u9B54_u6CD5" class="headerlink" title="data-main的魔法"></a>data-main的魔法</h3><p>RequireJS苗条版，除了只引入了RequireJS本身，最可疑的地方就是这个<code>script</code>的<code>data-main</code>属性了。<code>assets/js/requirejsConfig</code>看上去是个文件路径吧？说！里面写了些什么？</p>
+<p>既然你这么机灵，没办法，只能坦白从宽了。</p>
+<p><code>data-main</code>指向的文件，其实可以看成是RequireJS的配置文件。加载完RequireJS以后，第一张会加载的<code>script</code>就是<code>data-main</code>所指。</p>
+<h3 id="requirejs-config"><a href="#requirejs-config" class="headerlink" title="requirejs.config"></a>requirejs.config</h3><p>在<code>assets/js/requirejsConfig</code>里面，使用requirejs.config方法对RequireJS进行配置。接下来会从简说明一下配置文件中常用的参数。</p>
+<p>注意： requirejs.config中的文件路径均为相对于index.html的路径。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseUrl: <span class="string">'assets/js'</span>,</span><br></pre></td></tr></table></figure>
+<p><code>baseUrl</code>是本config文件中用到的所有文件的路径base。所有文件最终形式都是baseUrl + path（接下来马上会说明）。</p>
+<p>以jquery为例，如下配置以后RequireJS就会知道，jquery的路径为：‘assets/js/lib/jquery-1.11.2.min.js’。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">paths: &#123;</span><br><span class="line">    <span class="comment">// 路径中不需要添加文件后缀</span></span><br><span class="line">    jquery    : <span class="string">'lib/jquery-1.11.2.min'</span>,</span><br><span class="line">    underscore: <span class="string">'lib/underscore-1.8.3.min'</span>,</span><br><span class="line">    backbone  : <span class="string">'lib/backbone-1.1.2.min'</span>,</span><br><span class="line">    requirejs : <span class="string">'lib/requirejs-2.1.19.min'</span></span><br><span class="line">    backbone  : [</span><br><span class="line">        <span class="comment">// 如果希望使用CDN地址，可以这样配置</span></span><br><span class="line">        <span class="string">'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min'</span>,</span><br><span class="line">        <span class="comment">// CDN加载失败时，会自动从下面这条路径加载文件</span></span><br><span class="line">        <span class="string">'backbone-1.1.2.min'</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Tips：一个个找文件路径很麻烦？如果你的项目中有使用Bower，用<code>bower --paths</code>命令，就可以轻松列出所有包的路径了。</p>
+<p>定义好paths以后，在使用define方法的时候，就可以直接使用paths对象里面的key，不需要写长到爆的JS文件名了。</p>
+<h3 id="define_u65B9_u6CD5"><a href="#define_u65B9_u6CD5" class="headerlink" title="define方法"></a>define方法</h3><p>在苗条版最下方，你会看到我还是用了老方法来执行jquery方法。下面我们一起来尝试RequireJS的define方法吧。</p>
+<p>首先把苗条版最后的jquery方法提取出来，放到<code>assets/js/tipText.js</code>里面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">    $(<span class="string">'.lineOne'</span>).text(<span class="string">'This page is showing you the MODERN way of including js files'</span>);</span><br><span class="line">    $(<span class="string">'.lineTwo'</span>).text(<span class="string">'-- using REQUIRE JS!!!.'</span>);</span><br><span class="line">    $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>define方法接受的参数，第一个是需要依赖的模块，以数组形式传入。在接下来的function中，记得一定要<strong>对应数组顺序</strong>，给它传入参数。</p>
+<p>比方说，我的依赖模块是jquery和underscore，function的参数就需要按顺序是<code>$</code>和<code>_</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$, _</span>) </span>&#123; ...... &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你非要给function先传<code>_</code>再<code>$</code>，也不是不可以。只要你记得<code>_</code>是jquery，<code>$</code>是underscore就好了。</p>
+<p>非要试一下是吧？没问题，直接尝试下面这样写，然后刷新页面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">$, _</span>) </span>&#123; </span><br><span class="line">    $(<span class="string">'.lineThree'</span>).text(<span class="string">'Check the HTML code!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>……</p>
+<p>相信了吧？</p>
+<p>乖乖地<strong>按照顺序</strong>来吧。</p>
+<p>但是如果要依赖的模块超级多，要一个一个写到数组里面然后在function里面对应加，那会烦到爆啊！</p>
+<p>对！所以可以像下面这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">  <span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'underscore'</span>);</span><br><span class="line">  ......</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="require_u65B9_u6CD5"><a href="#require_u65B9_u6CD5" class="headerlink" title="require方法"></a>require方法</h3><p>好了，既然我们把原有的jquery方法提取了出来，接着要怎么使用呢？</p>
+<p>很简单，为了方便我们暂时直接在引用完RequireJS之后调用require方法吧。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>Modern Way<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineOne"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineTwo"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"lineThree"</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">data-main</span>=<span class="value">"assets/js/requirejsConfig"</span> <span class="attribute">src</span>=<span class="value">"assets/js/lib/requirejs-2.1.19.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        <span class="built_in">require</span>([<span class="string">'tipText'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText</span>) </span>&#123; &#125;);</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>由于我们的tipText文件目前只是对html做了一些简单处理，直接这样就可以了。刷新页面可以看到效果。</p>
+<p>require方法接受的参数和参数规则与define方法一致。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText</span>) </span>&#123; &#125;);</span><br></pre></td></tr></table></figure>
+<p>数组中依赖的模块，使用相对<code>requirejsConfig.js</code>的路径。试一下在dev下面新建<code>testRequire.js</code>文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dev</span><br><span class="line">├── assets</span><br><span class="line">│   └── js</span><br><span class="line">│       ├── lib</span><br><span class="line">│       │   ├── backbone-<span class="number">1.1</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── jquery-<span class="number">1.11</span>.<span class="number">2</span>.min.js</span><br><span class="line">│       │   ├── requirejs-<span class="number">2.1</span>.<span class="number">19</span>.min.js</span><br><span class="line">│       │   └── underscore-<span class="number">1.8</span>.<span class="number">3</span>.min.js</span><br><span class="line">│       ├── requirejsConfig.js</span><br><span class="line">│       └── tipText.js</span><br><span class="line">├── index-modern.html</span><br><span class="line">├── index-old-school.html</span><br><span class="line">└── <span class="built_in">test</span>Require.js  // require方法引用模块路径测试文件</span><br></pre></td></tr></table></figure>
+<p>如果直接在require方法中这样引入，RequireJS是会报script error的。因为与<code>requirejsConfig.js</code>同级的文件中找不到<code>testRequire.js</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire</span>) </span>&#123; &#125;);</span><br></pre></td></tr></table></figure>
+<p>改成下面这样页面就可以正常显示了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire</span>) </span>&#123;  &#125;);</span><br></pre></td></tr></table></figure>
+<p>###普通js也可以作为模块引入吗？<br>答案是，让人兴奋的，<strong>可以</strong>哟~</p>
+<p>下面我们直接在js文件夹新建<code>global.js</code>文件，文件里面就这样定义一个简单对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GLOBALVAR = &#123;</span><br><span class="line">    amd: <span class="string">'requirejs'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在<code>requireConfig.js</code>里面，增加一个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非amd的js，可以通过shim object来设置。</span></span><br><span class="line"><span class="comment">// 这样就可以作为依赖模块在require方法中使用。</span></span><br><span class="line">shim: &#123;</span><br><span class="line">    <span class="string">'global'</span>: &#123;</span><br><span class="line">        exports: <span class="string">'GLOBALVAR'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在require方法中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>, <span class="string">'global'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, testRequire, GLOBALVAR</span>) </span>&#123; </span><br><span class="line">	<span class="comment">// 获取shim object中的GLOBALVAR</span></span><br><span class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u57FA_u672C_u539F_u7406_u603B_u7ED3"><a href="#u57FA_u672C_u539F_u7406_u603B_u7ED3" class="headerlink" title="基本原理总结"></a>基本原理总结</h3><ul>
+<li>引入RequireJS, 在data-main属性中指明配置文件</li>
+<li>使用define方法自定义模块。define时声明需要依赖的模块</li>
+<li>通过require方法使用自定义的模块。RequireJS会知道自定义模块依赖了哪些模块并一起加载</li>
+</ul>
+<p>如果你已经熟悉RequireJS的基本配置和使用，可以直接跳到<a href="/">30分钟上手RequireJS打包及优化</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/15/get-started-with-requirejs-in-30-min/" data-id="cijb143ea0000mn8za2d6fcz0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/16/get-stared-with-rjs-in-30-min/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          30分钟上手RequireJS打包及优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/10/get-started-with-bower-in-30-min/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">30分钟上手Bower</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/05/get-started-with-electron-in-30-min/">30分钟Electron入门</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/29/advance-stylus-in-30-min/">30分钟Stylus进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/19/get-started-with-browserify-in-30-min/">30分钟上手Browserify</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/16/get-stared-with-rjs-in-30-min/">30分钟上手RequireJS打包及优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/15/get-started-with-requirejs-in-30-min/">30分钟上手RequireJS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Levblanc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
