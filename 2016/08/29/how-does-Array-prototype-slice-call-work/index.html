@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Levblanc">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="Array.prototype.slice.call(arguments, 1)到底什么意思?"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Keep It Simple Do It Well"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.comundefined"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Keep It Simple Do It Well" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Keep It Simple Do It Well</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-83259976-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Array.prototype.slice.call(arguments, 1)到底什么意思?</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/levblanc">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:levblanc@163.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Levblanc</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2016-08-29</span>
+            <span class="time">16:46:17</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/coding/">coding</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/js/">#js</a> <a class="tag" href="/tags/slice/">#slice</a> <a class="tag" href="/tags/call/">#call</a> <a class="tag" href="/tags/arguments/">#arguments</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>思考<a href="http://levblanc.github.io/2016/08/13/this-context-of-anonymous-function-in-javascript/" target="_blank" rel="external">匿名函数的<code>this</code> context到底是什么</a>的同时，找到了相当一部分资料，是教你如何绑定这个<code>this</code>的。他们都不约而同地使用了一个方法：Array.prototype.slice.call(arguments, 1)，但是这又引起了另外一个问题，<code>call</code>方法的第一个参数，不是<code>this</code>对象吗？为什么可以传<code>arguments</code>？</p>
+<a id="more"></a>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>我们先来看看google出来的资料里面，如何自己实现一个<code>bind</code>方法的代码片段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype._bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> fn = <span class="keyword">this</span>;</div><div class="line">  <span class="keyword">var</span> context = <span class="built_in">arguments</span>[<span class="number">0</span>];</div><div class="line">  <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>); <span class="comment">/* &lt;= here */</span></div><div class="line">  </div><div class="line">  <span class="keyword">return</span> fn.apply(context, args.concat([].slice.call(<span class="built_in">arguments</span>)));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样写的目的很明显，<code>args</code>就是<code>this</code> context以外的所有参数，形式为数组。</p>
+<p>之前对<code>call</code>方法浅显的了解，就是它和<code>apply</code>方法一样，都可以方便地绑定<code>this</code>对象，并在接下来的参数中，传入原方法需要的其它参数。</p>
+<p>就算是上面这个片段中，最后<code>return</code>的方法，<code>apply</code>方法的第一个对象，其实也是<code>this</code>对象啊。</p>
+<p>但是为什么<code>args</code>这里可以直接传<code>arguments</code>进去呢？</p>
+<p>在<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call" target="_blank" rel="external">MDN-Function.prototype.call()</a>上是这么写的：</p>
+<blockquote>
+<p>fun.call(thisArg[, arg1[, arg2[, …]]])</p>
+</blockquote>
+<p>看到这个写法，我觉得人家官方已经说得很明确，<code>call</code>方法的第一个参数，就一定个<code>this</code>。</p>
+<p>接着查到，<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="external">MDN-Arguments object</a>简单带过了一下，说用下面这个方法就可以把本来不是<code>Array</code>的<code>arguments</code>对象，转化为<code>Array</code>:</p>
+<blockquote>
+<p>var args = Array.prototype.slice.call(arguments);</p>
+</blockquote>
+<p>当时我严重觉得MDN在<code>arguments</code>这里要么就是写错了，要么就是没说清楚具体的原理。</p>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><p>于是我把自己能想到的关键字都组合了一遍，每次google出来的答案，我最少都要翻上三页，直到我认为出来的结果已经没有任何再dig的意义为止。<br>在折腾了一天以后，我找到了一篇文章，里面说的东西跟如何<code>bind``this</code>一点关系都没有，但是它写出了<code>Array.prototype.slice.call</code>的真正意思：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newObject = <span class="built_in">Array</span>.prototype.slice.call(oldObject, [beginningIndex, [endingIndex]]);</div></pre></td></tr></table></figure>
+<p>看到这行代码我就豁然开朗了。翻译成中文它是这个意思：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">新对象 = <span class="built_in">Array</span>.prototype.slice.call(作用对象, [beginningIndex, [endingIndex]]);</div></pre></td></tr></table></figure>
+<p>不是什么<code>thisArg</code>，不是什么“call和apply可以让你方便地绑定不同的<code>this</code>对象”，</p>
+<p>而是，<strong>如果你想要指定某个方法的作用对象，那就使用<code>call</code>或<code>apply</code>方法吧</strong>（大多数情况下”作用对象”都是<code>this</code>）。</p>
+<p>在stackoverflow上，有另外的解释说，这样做其实是强行把<code>slice</code>的<code>this</code>对象设置成了“拥有<code>.length</code>属性，且其它属性都是数字索引的形式”（has a numeric <code>.length</code> property, and a bunch of properties that are numeric indices）的对象，它依然能照常工作。</p>
+<p>上面说的这种对象，有个名称叫<code>Array-like object</code>（我自己的翻译是，类数组对象）。有几种典型的对象属于这一类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 一直在讨论的arguments对象 */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">myfunc</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* HTMLCollection */</span></div><div class="line"><span class="keyword">var</span> uls = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"ul"</span>);</div><div class="line"><span class="comment">/* 形式如下的object */</span></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    length: <span class="number">4</span>,</div><div class="line">    <span class="string">'0'</span>: <span class="string">'zero'</span>,</div><div class="line">    <span class="string">'1'</span>: <span class="string">'one'</span>,</div><div class="line">    <span class="string">'2'</span>: <span class="string">'two'</span>,</div><div class="line">    <span class="string">'3'</span>: <span class="string">'three'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="再进一步"><a href="#再进一步" class="headerlink" title="再进一步"></a>再进一步</h3><p>看多了下面这种写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someObject.prototype.someMethod.call()</div></pre></td></tr></table></figure>
+<p>我就会想，以<code>slice</code>方法威力，为什么不是直接：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[].slice.call(<span class="built_in">arguments</span>)</div><div class="line"><span class="comment">/* or */</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Array</span>.slice.call(<span class="built_in">arguments</span>)</div></pre></td></tr></table></figure>
+<p>这样呢？使用<code>prototype</code>里面的方法有什么好处么？</p>
+<p>答案是：</p>
+<p>如果直接用上面这两种方法，会首先创建一个<code>Array</code>对象。然而我们对这个对象并没有兴趣，所以根本不应该创建这么一个多余的对象。从<code>Array</code>的原型链上获取<code>slice</code>方法，是最直接的方式。</p>
+<hr>
+<p>参考资料：<br>[1]. <a href="http://mariapacana.tumblr.com/post/79170518832/javascript-tricks" target="_blank" rel="external">Javascript Tricks: Array.prototype.slice.call(arguments)</a><br>[2]. <a href="http://stackoverflow.com/questions/7056925/how-does-array-prototype-slice-call-work" target="_blank" rel="external">stackoverflow-how does Array.prototype.slice.call() work?</a><br>[3]. <a href="http://www.javascriptkit.com/javatutors/arrayprototypeslice.shtml" target="_blank" rel="external">Converting objects to arrays using Array.prototype.slice.call()</a></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
