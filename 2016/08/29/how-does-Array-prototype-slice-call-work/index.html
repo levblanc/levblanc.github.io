@@ -111,7 +111,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2016-08-29</span>
-            <span class="time">18:26:01</span>
+            <span class="time">18:26:31</span>
           </span>
           
           <!--  Categories  -->
@@ -135,12 +135,7 @@
         <div class="post-content">
           <p>思考<a href="http://levblanc.github.io/2016/08/13/this-context-of-anonymous-function-in-javascript/" target="_blank" rel="external">匿名函数的<code>this</code> context到底是什么</a>的同时，找到了相当一部分资料，是教你如何绑定这个<code>this</code>的。他们都不约而同地使用了一个方法：Array.prototype.slice.call(arguments, 1)，但是这又引起了另外一个问题，<code>call</code>方法的第一个参数，不是<code>this</code>对象吗？为什么可以传<code>arguments</code>？</p>
 <a id="more"></a>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li>item 1</li>
-<li>item 2</li>
-<li>item 3</li>
-</ul>
-<p>我们先来看看google出来的资料里面，如何自己实现一个<code>bind</code>方法的代码片段：</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>我们先来看看google出来的资料里面，如何自己实现一个<code>bind</code>方法的代码片段：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype._bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> fn = <span class="keyword">this</span>;</div><div class="line">  <span class="keyword">var</span> context = <span class="built_in">arguments</span>[<span class="number">0</span>];</div><div class="line">  <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>); <span class="comment">/* &lt;= here */</span></div><div class="line"></div><div class="line">  <span class="keyword">return</span> fn.apply(context, args.concat([].slice.call(<span class="built_in">arguments</span>)));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样写的目的很明显，<code>args</code>就是<code>this</code> context以外的所有参数，形式为数组。</p>
 <p>之前对<code>call</code>方法浅显的了解，就是它和<code>apply</code>方法一样，都可以方便地绑定<code>this</code>对象，并在接下来的参数中，传入原方法需要的其它参数。</p>
