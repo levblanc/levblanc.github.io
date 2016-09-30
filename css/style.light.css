@@ -466,10 +466,6 @@ body {
   font-size: 100%; /* add PX (or original value) as backup */
   font-size: 100%;
 }
-ul li {
-  display: inline-block;
-  list-style: none;
-}
 a {
   color: #1999ec;
 }
@@ -528,6 +524,7 @@ h6 {
   padding: 0;
 }
 .site-menu ul > li {
+  display: inline-block;
   margin-right: 0.625rem;
 }
 .site-menu ul > li:last-child {
