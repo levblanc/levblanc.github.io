@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Levblanc">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="git: checkout all branches and push to new origin"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Keep It Simple Do It Well"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.comundefined"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Keep It Simple Do It Well" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Keep It Simple Do It Well</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-83259976-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">git: checkout all branches and push to new origin</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/levblanc">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:levblanc@163.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Levblanc</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2016-10-28</span>
+            <span class="time">17:42:13</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/coding/">coding</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/git/">#git</a> <a class="tag" href="/tags/branch/">#branch</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>Step by step on how to checkout all branches of a remote origin and push them all onto a new origin.</p>
+<a id="more"></a>
+<ol>
+<li><p><code>cd</code> into your repo</p>
+</li>
+<li><p>save the following script under your repo’s path:</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/zsh</span></div><div class="line"><span class="keyword">for</span> branch <span class="keyword">in</span> `git branch <span class="_">-a</span> | grep remotes/origin`; <span class="keyword">do</span></div><div class="line">    <span class="comment"># echo $&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    <span class="comment"># echo "origin/"$&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    git branch --track <span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125; <span class="string">"origin/"</span><span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125;</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<p><strong>Be sure to comment out the echos to see the prints on terminal before executing the real track command!! All they did was to sub and concat strings return by the <code>git branch</code> command. You may have to change the starting and ending indexes, or modify the prefix on target origin branch.</strong></p>
+<p> It will track all the remote branches to your machine in the following format:</p>
+<p> origin branch name: <code>remotes/origin/develop</code></p>
+<p> local branch name: <code>develop</code></p>
+<p> command execute:</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch --track develop origin/develop</div></pre></td></tr></table></figure>
+</li>
+<li><p>under repo path, run</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git fetch --all</div></pre></td></tr></table></figure>
+<p>to update all branches to the latest on your machine.</p>
+<p>If you have GUI apps like <code>SourceTree</code> on your machine, check and see whether all the branches are latest. <strong>If there are still badges telling you there are new commits to pull, pull them before you go on to the next step.</strong></p>
+</li>
+<li><p>create new origin :</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add &lt;new-origin-name&gt; &lt;new-origin-repo-url&gt;</div></pre></td></tr></table></figure>
+<p>example:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add my-awesome-new-origin http://new-origin-host.com/new-repo.git</div></pre></td></tr></table></figure>
+</li>
+<li><p>push all local branches to new origin:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push --all my-awesome-new-origin</div></pre></td></tr></table></figure>
+</li>
+<li><p>All done!</p>
+</li>
+</ol>
+<hr>
+<p>References:</p>
+<p>[1] <a href="https://coderwall.com/p/0ypmka/git-clone-all-remote-branches-locally" target="_blank" rel="external">git clone all remote branches locally</a><br>[2] <a href="http://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches" target="_blank" rel="external">How to fetch all git branches</a><br>[3] <a href="http://stackoverflow.com/questions/6865302/push-local-git-repo-to-new-remote-including-all-branches-and-tags" target="_blank" rel="external">Push local Git repo to new remote including all branches and tags</a></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
