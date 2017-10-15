@@ -111,7 +111,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2015-07-13</span>
-            <span class="time">16:11:31</span>
+            <span class="time">20:14:11</span>
           </span>
           
           <!--  Categories  -->
@@ -162,7 +162,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>默认本地运行地址是 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a><br><img src="/2015/07/13/building-github-pages-blog-with-hexo/hexo-blog.png" alt="Figure 3. 本地运行" title="Figure 3. 本地运行"></p>
 <h3 id="在Hexo中配置项目部署信息"><a href="#在Hexo中配置项目部署信息" class="headerlink" title="在Hexo中配置项目部署信息"></a>在Hexo中配置项目部署信息</h3><p>在博客文件夹根目录下，找到文件<code>_config.yml</code>。在deploy部分填写配置信息，把repository值设置为刚刚复制好的ssh地址。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repository:</span> &lt;your-github-repo-ssh-address<span class="string">&gt;</span></div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repository:</span> <span class="string">&lt;your-github-repo-ssh-address&gt;</span></div><div class="line"><span class="attr">  branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure>
 <h3 id="部署到Github-Pages"><a href="#部署到Github-Pages" class="headerlink" title="部署到Github Pages"></a>部署到Github Pages</h3><p>原生项目中已有一篇默认博客hello world，可以马上尝试部署到github pages。</p>
 <p>删除database和public文件夹<br>（第一次生成网页可以跳过这一步，日后在本地写文章的时候，可能会有更改md文件名等操作，清空这两个地方可以在<code>generate</code>的时候生成一份最新的项目结构）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo clean</div></pre></td></tr></table></figure>

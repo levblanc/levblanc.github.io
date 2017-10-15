@@ -111,7 +111,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2016-10-28</span>
-            <span class="time">16:11:31</span>
+            <span class="time">20:14:11</span>
           </span>
           
           <!--  Categories  -->
@@ -139,7 +139,7 @@
 <li><p><code>cd</code> into your repo</p>
 </li>
 <li><p>save the following script under your repo’s path:</p>
- <figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/zsh</span></div><div class="line"><span class="keyword">for</span> branch <span class="keyword">in</span> `git branch <span class="_">-a</span> | grep remotes/origin`; <span class="keyword">do</span></div><div class="line">    <span class="comment"># echo $&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    <span class="comment"># echo "origin/"$&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    git branch --track <span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125; <span class="string">"origin/"</span><span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125;</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/zsh</span></div><div class="line"><span class="keyword">for</span> branch <span class="keyword">in</span> `git branch -a | grep remotes/origin`; <span class="keyword">do</span></div><div class="line">    <span class="comment"># echo $&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    <span class="comment"># echo "origin/"$&#123;branch:15:$&#123;#branch&#125;&#125;</span></div><div class="line">    git branch --track <span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125; <span class="string">"origin/"</span><span class="variable">$&#123;branch:15:$&#123;#branch&#125;</span>&#125;</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 <p><strong>Be sure to comment out the echos to see the prints on terminal before executing the real track command!! All they did was to sub and concat strings return by the <code>git branch</code> command. You may have to change the starting and ending indexes, or modify the prefix on target origin branch.</strong></p>
 <p> It will track all the remote branches to your machine in the following format:</p>
 <p> origin branch name: <code>remotes/origin/develop</code></p>
