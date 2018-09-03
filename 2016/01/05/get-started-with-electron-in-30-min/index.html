@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <!-- Custom CSS -->
   
-  <link rel="stylesheet" href="/css/style.dark.css">
+  <link rel="stylesheet" href="/css/style.light.css">
 
   <!-- Google Analytics -->
   
@@ -100,7 +100,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2016-01-05</span>
-            <span class="time">20:52:49</span>
+            <span class="time">11:30:42</span>
           </span>
           
           <!--  Categories  -->
@@ -179,6 +179,7 @@
 <p><code>app.js</code>中使用<code>nodeJS</code>的API，读取<code>package.json</code>文件内容：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="keyword">var</span> pckJson = fs.readFileSync(<span class="string">'./package.json'</span>, <span class="string">'utf8'</span>)</div><div class="line">$(<span class="string">'.fileContent'</span>).text(pckJson)</div></pre></td></tr></table></figure>
 <p>能做到这一点，就代表我们可以在app本地写一些数据来使用了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</div><div class="line"><span class="keyword">import</span> Nature.Time;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">mainClass</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> </span>&#123;</div><div class="line">		Nature.Time n = <span class="keyword">new</span> Nature.Time(<span class="number">0</span>);</div><div class="line">		<span class="comment">//start from first day;</span></div><div class="line">		<span class="keyword">int</span> maxRabbitNumber = <span class="number">1024</span>;</div><div class="line">		<span class="keyword">int</span> i = <span class="number">0</span>,k = <span class="number">0</span>;</div><div class="line">		Rabbit[] r = <span class="keyword">new</span> Rabbit[maxRabbitNumber];<span class="comment">//1024 rabbits is enough;</span></div><div class="line">		<span class="keyword">int</span> adultRabbit = <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> initRabbitNum = <span class="number">1</span>;</div><div class="line">		<span class="keyword">int</span> existRabbitNum = initRabbitNum;</div><div class="line">		<span class="keyword">int</span> oldAdultRabbit = <span class="number">0</span>;</div><div class="line"></div><div class="line">		<span class="keyword">for</span>(;n.getTimeByMonth() &lt;= <span class="number">100</span>;) &#123;</div><div class="line">			<span class="keyword">try</span> &#123;</div><div class="line">  			<span class="keyword">if</span>(i &lt;= (existRabbitNum - <span class="number">1</span>))</div><div class="line">  			System.out.print(<span class="string">"[INFO] Adding rabbit in the r."</span>);</div><div class="line">  			<span class="keyword">for</span>(;i &lt;= (existRabbitNum - <span class="number">1</span>) &amp;&amp; i &lt; maxRabbitNumber;i++) &#123;</div><div class="line">  				r[i] = <span class="keyword">new</span> Rabbit();</div><div class="line">  				TimeUnit.MILLISECONDS.sleep(<span class="number">50</span>);</div><div class="line">  				System.out.print(<span class="string">"."</span>);</div><div class="line">  			&#125;</div><div class="line">  			TimeUnit.MILLISECONDS.sleep(<span class="number">50</span>);</div><div class="line">  			System.out.println(<span class="string">""</span>);</div><div class="line">  			oldAdultRabbit = adultRabbit;</div><div class="line">  			<span class="keyword">for</span>(k = adultRabbit;k &lt;= (existRabbitNum - <span class="number">1</span>);k++) &#123;</div><div class="line">  				<span class="keyword">if</span>(r[k].getAgeByMonth() &gt;= r[k].getAdultAgeByMonth()) &#123;</div><div class="line">  					adultRabbit += <span class="number">1</span>;</div><div class="line">  				&#125;</div><div class="line">  			&#125;</div><div class="line">  			<span class="keyword">if</span>((adultRabbit - oldAdultRabbit) != <span class="number">0</span>)</div><div class="line">  				System.out.println(<span class="string">"[INFO] There are "</span> + (adultRabbit - oldAdultRabbit)</div><div class="line">  					+ <span class="string">" rabbit become adult."</span>);</div><div class="line">  			n.add((<span class="keyword">int</span>) Nature.Time.month);</div><div class="line">  			System.out.println(<span class="string">"[TIME] Time passed 1 month, and this is "</span>+ n.getTimeByMonth() +<span class="string">" month."</span>);</div><div class="line">  			<span class="keyword">for</span>(k = <span class="number">0</span>;k &lt;= (existRabbitNum - <span class="number">1</span>); k++) &#123;</div><div class="line">  				r[k].syncAge((<span class="keyword">int</span>) n.getTimeByDay());</div><div class="line">  			&#125;</div><div class="line">  			<span class="keyword">for</span>(k = <span class="number">0</span>;k &lt; (adultRabbit);k++) &#123;</div><div class="line">  				existRabbitNum++;</div><div class="line">  			&#125;</div><div class="line">  			System.out.println(existRabbitNum);</div><div class="line">			&#125;<span class="keyword">catch</span>(Exception e) &#123;</div><div class="line">				System.out.println(<span class="string">"[ERR]  Finally, time passes "</span></div><div class="line">						+ n.getTimeByDay() + <span class="string">" days, it means "</span></div><div class="line">						+ n.getTimeByMonth() + <span class="string">" months, about "</span></div><div class="line">						+ n.getTimeByYear() + <span class="string">" years, and "</span></div><div class="line">						+ (existRabbitNum - initRabbitNum) +<span class="string">" rabbits born, "</span></div><div class="line">						+ adultRabbit + <span class="string">" rabbits become adult. Bye."</span>);</div><div class="line">				System.exit(<span class="number">0</span>);</div><div class="line">			&#125;		</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>参考资料：</p>
 <p>[1] <a href="http://blog.soulserv.net/building-a-package-featuring-electron-as-a-stand-alone-application/" target="_blank" rel="external">Building a Package Featuring Electron as a Stand-Alone Application</a></p>
@@ -212,7 +213,7 @@
 
 
     <!-- After Footer Scripts -->
-<script src="/js/highlight.pack.js"></script>
+<!-- <script src="/js/highlight.pack.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
     var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
@@ -220,7 +221,7 @@
       hljs.highlightBlock(block);
     });
   });
-</script>
+</script> -->
 
   </body>
 </html>
